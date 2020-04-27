@@ -11,7 +11,7 @@ const server = http.createServer(function (req, res) {
     let day = moment().format("DD");
     let hour = moment().format("HH:MM:SS");
     let dayText = moment().format("dddd");
-    let dateMsg = "Se llamó al kervidor el " + day + " de "+ month + " de " + year + " a las " + hour + " (" +  dayText  + ") \n";
+    let dateMsg = "Se llamó al servidor el " + day + " de "+ month + " de " + year + " a las " + hour + " (" +  dayText  + ") \n";
     fs.appendFile("message.txt", dateMsg, (err) => {
         if (err) throw err;
             console.log(dateMsg, 'agregado al archivo');
