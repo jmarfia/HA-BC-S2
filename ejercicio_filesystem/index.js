@@ -20,3 +20,22 @@ const server = http.createServer(function (req, res) {
 });
 
 server.listen(8000);
+
+// solucion de Camilo
+// const http = require("http");
+// const fs = require("fs");
+// const moment = require("moment");
+
+// const server = http.createServer((request, response) => {
+//   moment.locale("es");
+//   const message =
+//     moment().format("[Se llamó al servidor el ] LL [a las] LTS (dddd)") + ".\n";
+
+//   fs.appendFile("access_log.txt", message, (error) => {
+//     if (error) throw error;
+//   });
+
+//   response.end();
+// });
+
+// server.listen(8000);
