@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 
 
-console.log(process.argv[2]);
+//console.log(process.argv[2]);
 paramDir = process.argv[2];
 paramExt = process.argv[3];
 
@@ -13,9 +13,10 @@ fs.readdir(paramDir,function(err, files){
     if(err){
         console.log(err);
     }
+    console.log("Archivos encontrados:");
     files.forEach(file => {
         if (file.includes(paramExt)) {
-            console.log(file);
+            console.log("\t", file);
         }
         
     })
