@@ -1,13 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 
-
-//console.log(process.argv[2]);
 paramDir = process.argv[2];
 paramExt = process.argv[3];
 
-//Concatenar argumento con parte de la ruta
-//console.log(__dirname, "laskdjf")
 //includes no sirve, por que si un archivo se llama juantxt.exe lo muestra.
 
 fs.readdir(paramDir,function(err, files){

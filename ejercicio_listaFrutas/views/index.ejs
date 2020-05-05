@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/header") %>
+  <%- include("partials/navbar") %>
+  <body>
+    <div class="">home</div>
+    <ul>
+      <% value.forEach(element => { %>
+        <li><%= element %></li>
+      <% }) %>
+    </ul>
+    <div class="container">
+      <div class="mt-5 border p-5">
+        <form action="/" method="POST">
+          <h2>Ingrese fruta a agregar</h2>
+          <h6>Fruta</h6>
+          <input id="fruta" type="text" name="fruta" class="form-control mb-3" />
+          <button type="submit" class="btn btn-success mt-5">
+            Agregar fruta
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
