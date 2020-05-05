@@ -29,6 +29,16 @@ app.post("/teams", function (req, res) {
   console.log(teams)
 });
 
+app.patch("/teams:id", function (req, res) {
+  let teamID = req.params.id;
+  var query1 = req.body;
+  console.log(query1)
+  console.log("recibi el patch")
+  teams.teams[teamID] = query1;
+  console.log(teams)
+  res.sendStatus(200);
+});
+
 app.delete("/teams:id", function (req, res) {
   console.log(req.params.id)
   console.log("recibi el delete")
