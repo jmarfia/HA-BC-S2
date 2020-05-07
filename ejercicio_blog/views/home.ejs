@@ -14,7 +14,16 @@
               <th scope="head">Edad</th>
               <th scope="head">Acciones</th>
             </tr>
-            <%- value %> 
+
+            <% users.forEach(element => { %>
+            <tr>
+              <td><%- element.id %></td>
+              <td><%- element.firstname %></td>
+              <td><%- element.lastname %></td>
+              <td><%- element.age %></td>
+              <td><button class="btn btn-danger" >Eliminar</button></td>
+            </tr>
+            <% }) %>
           </table>
           <button type="button" class="btn btn-primary">
             Ir a la página de inicio
