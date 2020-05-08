@@ -5,144 +5,22 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col-6">
-          <!-- div de tabla -->
-          <table class="table">
-            <tr>
-              <th scope="head">ID</th>
-              <th scope="head">Nombre</th>
-              <th scope="head">Apellido</th>
-              <th scope="head">Edad</th>
-              <th scope="head">Acciones</th>
-            </tr>
 
-            <% users.forEach(element => { %>
-            <tr>
-              <td><%- element.id %></td>
-              <td><%- element.firstname %></td>
-              <td><%- element.lastname %></td>
-              <td><%- element.age %></td>
-              <td><button class="btn btn-danger" >Eliminar</button></td>
-            </tr>
+          <% articulos.forEach(element => { %>
+            <div class="border rounded">
+              <div class="h4"><%- element.titulo %></div>
+              <div class="text-muted"><%- element.contenido %></div>
+              <img src="<%- element.avatar %>" alt="" width="200" height="200">
+              <div>Autor: <%- element.first_name %> <%- element.last_name %></div>
+              <div>Email: <%- element.email %></div>
             <% }) %>
-          </table>
-          <button type="button" class="btn btn-primary">
-            Ir a la página de inicio
-          </button>
+          </div>
         </div>
         <div class="col-6">
           <div class="row">
-            <div class="col-12 border rounded">
-              <div class="h4 bg-light text-dark">Crear nuevo usuario</div>
-              <!-- div de form crear nuevo usuario -->
-              <form action="" method="">
-                <div class="form-group row mt-1">
-                  <label for="colFormLabel" class="col-sm-2 col-form-label"
-                    >Nombre</label
-                  >
-                  <div class="col-sm-12">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="crearnombre"
-                      placeholder="Ingresar nombre..."
-                    />
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="colFormLabel" class="col-sm-2 col-form-label"
-                    >Apellido</label
-                  >
-                  <div class="col-sm-12">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="crearapellido"
-                      placeholder="Ingresar apellido..."
-                    />
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="colFormLabel" class="col-sm-2 col-form-label"
-                    >Edad</label
-                  >
-                  <div class="col-sm-12">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="crearedad"
-                      placeholder="ingresar edad..."
-                    />
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-success">
-                  Guardar
-                </button>
-              </form>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-12 border rounded">
-              <div class="h4 bg-light text-dark">Modificar usuario</div>
-              <!-- div de form modificar usuario -->
-              <form action="" method="">
-                <div class="form-group row mt-1">
-                  <label for="colFormLabel" class="col-sm-2 col-form-label"
-                    >ID</label
-                  >
-                  <div class="col-sm-12">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="modificarid"
-                      placeholder="Ingresar id..."
-                    />
-                  </div>
-                </div>
-                <div class="form-group row mt-1">
-                  <label for="colFormLabel" class="col-sm-2 col-form-label"
-                    >Nombre</label
-                  >
-                  <div class="col-sm-12">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="modificarnombre"
-                      placeholder="Ingresar nombre..."
-                    />
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="colFormLabel" class="col-sm-2 col-form-label"
-                    >Apellido</label
-                  >
-                  <div class="col-sm-12">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="modificarapellido"
-                      placeholder="Ingresar apellido..."
-                    />
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label for="colFormLabel" class="col-sm-2 col-form-label"
-                    >Edad</label
-                  >
-                  <div class="col-sm-12">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="modificaredad"
-                      placeholder="ingresar edad..."
-                    />
-                  </div>
-                </div>
 
-                <button type="submit" class="btn btn-success">
-                  Modificar
-                </button>
-              </form>
-            </div>
+
+
           </div>
         </div>
       </div>

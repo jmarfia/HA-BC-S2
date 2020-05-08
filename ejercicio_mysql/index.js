@@ -33,7 +33,7 @@ function traerUsuarios(callback) {
 app.get("/", function (req, res) {
   traerUsuarios(function (usersdb) {
     res.render("home", { users: usersdb });
-    //console.log(usersdb)
+    console.log(usersdb)
     res.end();
   });
 });
@@ -44,4 +44,4 @@ app.post("/asf", function (req, res) {
   res.render("index", { value: fruitList });
 });
 
-app.listen(3000);
+app.listen(3001);
