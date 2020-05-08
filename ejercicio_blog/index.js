@@ -25,6 +25,14 @@ app.get("/articulo", function (req, res) {
   //res.end(); no se por que no me anda si pongo el res.end
 });
 
+app.get("/adminpanel", function (req, res) {
+  DBLocal.getData(function (articlesDB) {
+    //console.log(articlesDB);
+    res.render("adminpanel", { articulos: articlesDB });
+  }, DBLocal.queryAllArticles);
+  //res.end(); no se por que no me anda si pongo el res.end
+});
+
 app.post("/asf", function (req, res) {
   var query1 = req.body.fruta;
   fruitList.push(query1);
@@ -32,8 +40,3 @@ app.post("/asf", function (req, res) {
 });
 
 app.listen(3000);
-
-// traer articulos FUNCIONA
-// DBLocal.getData(function(articlesDB){
-//   console.log(articlesDB)
-// },DBLocal.queryArticles)
