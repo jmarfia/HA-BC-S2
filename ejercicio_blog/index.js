@@ -6,25 +6,14 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-//app.use(express.json());
 
-// traer articulos FUNCIONA
-// DBLocal.getData(function(articlesDB){
-//   console.log(articlesDB)
-// },DBLocal.queryArticles)
 
 app.get("/", function (req, res) {
   DBLocal.getData(function (articlesDB) {
     console.log(articlesDB);
     res.render("home", { articulos: articlesDB });
   }, DBLocal.queryArticles);
-
-  // traerUsuarios(function (usersdb) {
-  //   res.render("home", { users: usersdb });
-  //   //console.log(usersdb)
-  //   res.end();
-  // });
-  //res.end();
+  //res.end(); no se por que no me anda si pongo el res.end
 });
 
 app.post("/asf", function (req, res) {
@@ -34,3 +23,18 @@ app.post("/asf", function (req, res) {
 });
 
 app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+// traer articulos FUNCIONA
+// DBLocal.getData(function(articlesDB){
+//   console.log(articlesDB)
+// },DBLocal.queryArticles)
