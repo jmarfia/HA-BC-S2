@@ -8,13 +8,14 @@
 
           <% articulos.forEach(element => { %>
             <div class="border rounded">
-              <div class="h4"><%- element.titulo %></div>
-              <div class="text-muted"><%- element.contenido %></div>
+              <div class="h4"><%- element.titulo %> - Articulo nro: <%- element.idarticulos %></div>
+              <div class="text-muted"><%- element.contenido.substring(0,150) %>... <a href="/articulo?articuloID=<%- element.idarticulos %>">ver articulo completo</a> </div>
               <img src="<%- element.avatar %>" alt="" width="200" height="200">
               <div>Autor: <%- element.first_name %> <%- element.last_name %></div>
               <div>Email: <%- element.email %></div>
+            </div>
             <% }) %>
-          </div>
+
         </div>
         <div class="col-6">
           <div class="row">

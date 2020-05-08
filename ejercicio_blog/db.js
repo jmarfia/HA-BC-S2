@@ -1,9 +1,6 @@
 const mysql = require("mysql");
+const articulo = require("./modelos/articulo")
 
-const queryArticles = `SELECT * 
-FROM autores.articulos
-JOIN autores.autores
-ON autores.articulos.id_autores = autores.autores.id_autores`
 
 function getData(callback, query) {
   const connection = mysql.createConnection({
@@ -29,5 +26,9 @@ function getData(callback, query) {
 
 module.exports ={
   getData: getData,
-  queryArticles: queryArticles
+  queryAllArticles: articulo.queryAllArticles,
+  queryFirstArticle: articulo.queryFirstArticle,
+  queryHeaderArticles: articulo.queryHeaderArticles,
+  queryLatestArticles: articulo.queryLatestArticles,
+  queryGetArticle: articulo.queryGetArticle
 }
