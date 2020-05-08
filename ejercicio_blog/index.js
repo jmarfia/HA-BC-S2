@@ -13,7 +13,7 @@ app.get("/", function (req, res) {
   DBLocal.getData(function (articlesDB) {
     //console.log(articlesDB);
     res.render("home", { articulos: articlesDB });
-  }, DBLocal.queryLatestArticles);
+  }, DBLocal.queryAllArticles);
   //res.end(); no se por que no me anda si pongo el res.end
 });
 
