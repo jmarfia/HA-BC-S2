@@ -1,14 +1,14 @@
 <div class="container">
     <div class="row">
         <% articulos.forEach(element => { %>
-        <div class="col-3">
+        <div class="col-4">
             <div class="titleArticulo"><%- element.titulo %> - Articulo nro:
                 <%- element.idarticulos %></div>
-            <div>Autor: <%- element.first_name %> <%- element.last_name %></div>
-            <div>Email: <%- element.email %></div>
+            <div class="autor">Autor: <%- element.first_name %> <%- element.last_name %></div>
+            <div class="mailAutor">Email: <%- element.email %></div>
         </div>
-        <div class="col-6">
-            <div class="text-muted"><%- element.contenido.substring(0,150) %>... <a
+        <div class="col-5">
+            <div class="contenido"><%- element.contenido.substring(0,150) %>... <a
                     href="/articulo?articuloID=<%- element.idarticulos %>">ver articulo completo</a>
             </div>
         </div>
