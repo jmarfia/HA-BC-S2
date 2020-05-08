@@ -6,8 +6,7 @@ var bodyParser = require("body-parser");
 const app = express();
 
 app.set("view engine", "ejs");
-
-
+app.use(express.static("../public/css"));
 
 app.get("/", function (req, res) {
   DBLocal.getData(function (articlesDB) {
@@ -22,10 +21,9 @@ app.get("/articulo", function (req, res) {
   DBLocal.getData(function (articlesDB) {
     //console.log(articlesDB);
     res.render("articulo", { articulo: articlesDB });
-  }, DBLocal.queryGetArticle+articuloID);
+  }, DBLocal.queryGetArticle + articuloID);
   //res.end(); no se por que no me anda si pongo el res.end
 });
-
 
 app.post("/asf", function (req, res) {
   var query1 = req.body.fruta;
@@ -34,16 +32,6 @@ app.post("/asf", function (req, res) {
 });
 
 app.listen(3000);
-
-
-
-
-
-
-
-
-
-
 
 // traer articulos FUNCIONA
 // DBLocal.getData(function(articlesDB){
