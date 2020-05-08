@@ -6,7 +6,7 @@ var bodyParser = require("body-parser");
 const app = express();
 
 app.set("view engine", "ejs");
-app.use(express.static("../public/css"));
+app.use(express.static("public/css"));
 
 app.get("/", function (req, res) {
   DBLocal.getData(function (articlesDB) {
