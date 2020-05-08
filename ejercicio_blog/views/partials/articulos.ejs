@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <% articulos.forEach(element => { %>
+        <div class="col-4">
+            <div class="h4"><%- element.titulo %> - Articulo nro: <%- element.idarticulos %></div>
+            <div>Autor: <%- element.first_name %> <%- element.last_name %></div>
+            <div>Email: <%- element.email %></div>
+        </div>
+        <div class="col-4">
+            <div class="text-muted"><%- element.contenido.substring(0,150) %>... <a
+                    href="/articulo?articuloID=<%- element.idarticulos %>">ver articulo completo</a>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="<%- element.avatar %>" alt="" width="200" height="200">
+        </div>
+        <% }) %>
+    </div>
+</div>
