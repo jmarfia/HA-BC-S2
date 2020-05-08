@@ -5,13 +5,16 @@
     <div class="container mt-5">
       <div class="row">
         <div class="col-12">
+          <table>
           <tr>
             <th>ID Articulo</th>
             <th>Ver</th>
             <th>Borrar</th>
             <th>Editar</th>
+          </tr>
             <% articulos.forEach(element => { %>
             <div class="border rounded">
+              <tr>
               <td class="h4">Articulo nro: <%- element.idarticulos %></td>
               <td><button class="btn btn-success" href="/articulo?articuloID=<%- element.idarticulos %>"> Ver </button></td>
               <td><button class="btn btn-danger" href="#"> Borrar </button></td>
@@ -19,6 +22,7 @@
             </div>
             <% }) %>
           </tr>
+        </table>
         </div>
       </div>
     </div>
