@@ -2,24 +2,40 @@
 <html lang="en">
   <%- include("partials/header") %>
   <body>
+    <%- include("partials/sidebar") %>
     <div class="container mt-5">
-        <div class="row border rounded p-3">
-          <div class="col-9">
-  
-            <% articulo.forEach(element => { %>
-              <div class="">
-                <div class="h4"><%- element.titulo %> - Articulo nro: <%- element.idarticulos %></div>
-                <div class="text-muted"><%- element.contenido %> </div>
-                
-                <div>Autor: <%- element.first_name %> <%- element.last_name %></div>
-                <div>Email: <%- element.email %></div>
-              </div>
-            </div>  
-            <div class="col-3 d-flex justify-content-center align-items-center"><img class="img-thumbnail" src="<%- element.avatar %>" alt="" width="200" height="200"></div>
-              <% }) %>
+      <div class="row border rounded p-3">
+        <div class="col-9">
+          
+          <div class="">
+            <div class="h4">
+              <%- articulo[0].titulo %> - Articulo nro: <%- articulo[0].idarticulos %>
             </div>
+            <div class="text-muted"><%- articulo[0].contenido %></div>
+
+            <div>Autor: <%- articulo[0].first_name %> <%- articulo[0].last_name %></div>
+            <div>Email: <%- articulo[0].email %></div>
           </div>
         </div>
+        <div class="col-3 d-flex justify-content-center align-items-center">
+          <img
+            class="img-thumbnail"
+            src="<%- articulo[0].avatar %>"
+            alt=""
+            width="200"
+            height="200"
+          />
+        </div>
+
       </div>
+      <div class="h5">Comentarios
+      <% articulo.forEach(comentario => { %>
+        <div class="row border rounded ml-1 pl-3 small"><%- comentario.comentario %> </div>
+       <% }) %>
+    </div>
+  </div>
+
+
+
   </body>
 </html>

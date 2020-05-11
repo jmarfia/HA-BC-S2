@@ -26,7 +26,13 @@ const queryGetArticle = `SELECT *
 FROM autores.articulos
 JOIN autores.autores
 ON autores.articulos.id_autores = autores.autores.id_autores 
+LEFT JOIN autores.comentarios
+ON autores.comentarios.idarticulo = autores.articulos.idarticulos
 WHERE autores.articulos.idarticulos = `
+
+const queryGetArticleComments = `SELECT *
+FROM autores.comentarios
+where autores.comentarios.idarticulo = `
 
 const queryDeleteArticle = `DELETE 
 FROM autores.articulos as art
@@ -38,5 +44,6 @@ module.exports = {
     queryHeaderArticles: queryHeaderArticles,
     queryLatestArticles: queryLatestArticles,
     queryGetArticle: queryGetArticle,
-    queryDeleteArticle: queryDeleteArticle
+    queryDeleteArticle: queryDeleteArticle,
+    queryGetArticleComments: queryGetArticleComments
 }

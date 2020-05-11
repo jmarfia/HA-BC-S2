@@ -31,5 +31,6 @@ module.exports ={
   queryHeaderArticles: articulo.queryHeaderArticles,
   queryLatestArticles: articulo.queryLatestArticles,
   queryGetArticle: articulo.queryGetArticle,
-  queryDeleteArticle: articulo.queryDeleteArticle
+  queryDeleteArticle: articulo.queryDeleteArticle,
+  queryGetArticleComments: articulo.queryGetArticleComments
 }

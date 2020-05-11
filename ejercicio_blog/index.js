@@ -19,10 +19,9 @@ app.get("/", function (req, res) {
 app.get("/articulo", function (req, res) {
   const articuloID = req.query.articuloID;
   DBLocal.getData(function (articlesDB) {
-    //console.log(articlesDB);
+    console.log(articlesDB);
     res.render("articulo", { articulo: articlesDB });
   }, DBLocal.queryGetArticle + articuloID);
-  //res.end(); no se por que no me anda si pongo el res.end
 });
 
 app.get("/borrararticulo", function (req, res) {
@@ -30,7 +29,7 @@ app.get("/borrararticulo", function (req, res) {
   DBLocal.getData(function (articlesDB) {
     //console.log(articlesDB);
     //res.render("adminpanel", { articulos: articlesDB });
-    res.redirect("/adminpanel")
+    res.redirect("/adminpanel");
   }, DBLocal.queryDeleteArticle + articuloID);
   //res.end(); no se por que no me anda si pongo el res.end
 });
