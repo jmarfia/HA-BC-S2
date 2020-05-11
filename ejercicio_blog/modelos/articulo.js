@@ -38,6 +38,17 @@ const queryDeleteArticle = `DELETE
 FROM autores.articulos as art
 where art.idarticulos = `
 
+const updateArticle1 = `
+UPDATE autores.articulos
+SET autores.articulos.contenido = 
+WHERE autores.articulos.idarticulos = `
+const updateArticle2 = `
+UPDATE autores.articulos
+SET autores.articulos.contenido = 
+WHERE autores.articulos.idarticulos = `
+
+
+
 module.exports = {
     queryAllArticles: queryAllArticles,
     queryFirstArticle: queryFirstArticle,

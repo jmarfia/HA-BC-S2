@@ -24,6 +24,14 @@ app.get("/articulo", function (req, res) {
   }, DBLocal.queryGetArticle + articuloID);
 });
 
+app.get("/modificararticulo", function (req, res) {
+  const articuloID = req.query.articuloID;
+  DBLocal.getData(function (articlesDB) {
+    console.log(articlesDB);
+    res.render("modificararticulo", { articulo: articlesDB });
+  }, DBLocal.queryGetArticle + articuloID);
+});
+
 app.get("/borrararticulo", function (req, res) {
   const articuloID = req.query.articuloID;
   DBLocal.getData(function (articlesDB) {
