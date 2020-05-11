@@ -28,10 +28,15 @@ JOIN autores.autores
 ON autores.articulos.id_autores = autores.autores.id_autores 
 WHERE autores.articulos.idarticulos = `
 
+const queryDeleteArticle = `DELETE 
+FROM autores.articulos as art
+where art.idarticulos = `
+
 module.exports = {
     queryAllArticles: queryAllArticles,
     queryFirstArticle: queryFirstArticle,
     queryHeaderArticles: queryHeaderArticles,
     queryLatestArticles: queryLatestArticles,
-    queryGetArticle: queryGetArticle
+    queryGetArticle: queryGetArticle,
+    queryDeleteArticle: queryDeleteArticle
 }

@@ -30,5 +30,6 @@ module.exports ={
   queryFirstArticle: articulo.queryFirstArticle,
   queryHeaderArticles: articulo.queryHeaderArticles,
   queryLatestArticles: articulo.queryLatestArticles,
-  queryGetArticle: articulo.queryGetArticle
+  queryGetArticle: articulo.queryGetArticle,
+  queryDeleteArticle: articulo.queryDeleteArticle
 }

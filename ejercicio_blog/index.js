@@ -25,6 +25,16 @@ app.get("/articulo", function (req, res) {
   //res.end(); no se por que no me anda si pongo el res.end
 });
 
+app.get("/borrararticulo", function (req, res) {
+  const articuloID = req.query.articuloID;
+  DBLocal.getData(function (articlesDB) {
+    //console.log(articlesDB);
+    //res.render("adminpanel", { articulos: articlesDB });
+    res.redirect("/adminpanel")
+  }, DBLocal.queryDeleteArticle + articuloID);
+  //res.end(); no se por que no me anda si pongo el res.end
+});
+
 app.get("/adminpanel", function (req, res) {
   DBLocal.getData(function (articlesDB) {
     //console.log(articlesDB);

@@ -1,6 +1,6 @@
 <div class="container">
   <% articulos.forEach(element => { %>
-  <div class="row border rounded m-1 p-3">
+    <a class="nounderline" href="/articulo?articuloID=<%- element.idarticulos %>"><div class="row border nounderline rounded m-1 p-3">
     <div class="col-4">
       <div class="titleArticulo">
         <%- element.titulo %> - Articulo nro: <%- element.idarticulos %>
@@ -13,9 +13,7 @@
     <div class="col-5 d-flex justify-content-center align-items-center">
       <div class="contenido">
         <%- element.contenido.substring(0,150) %>...
-        <a href="/articulo?articuloID=<%- element.idarticulos %>"
-          >ver articulo completo</a
-        >
+  
       </div>
     </div>
     <div class="col-3 d-flex justify-content-center align-items-center">
@@ -28,5 +26,6 @@
       />
     </div>
   </div>
+</a>
   <% }) %>
 </div>
