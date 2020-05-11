@@ -5,7 +5,7 @@
 <body>
   <%- include("partials/navbar") %>
   <div class="container mt-5">
-    <div class="row border rounded p-3">
+    <div class="row border border-primary rounded p-3 mb-5">
       <div class="col-9">
 
         <div class="">
@@ -19,14 +19,15 @@
         </div>
       </div>
       <div class="col-3 d-flex justify-content-center align-items-center">
-        <img class="img-thumbnail" src="<%- articulo[0].avatar %>" alt="" width="200"
+        <img class="img-thumbnail border-primary" src="<%- articulo[0].avatar %>" alt="" width="200"
           height="200" />
       </div>
 
     </div>
     <div class="h5">Comentarios
       <% articulo.forEach(comentario => { %>
-      <div class="row border rounded ml-1 pl-3 small"><%- comentario.comentario %> </div>
+      <div class="row border border-primary rounded ml-1 pl-3 small"><%- comentario.comentario %>
+      </div>
       <% }) %>
     </div>
   </div>
