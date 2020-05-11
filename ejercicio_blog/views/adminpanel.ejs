@@ -1,42 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include("partials/header") %>
+<%- include("partials/header") %>
 
-  <body>
-    <%- include("partials/sidebar") %>
-    <div class="container mt-5">
-      <% articulos.forEach(element => { %>
-        <div class="row">
-          <div class="col-1"></div>
-          <div class="col-10">
-      <div class="row border p-2">
-        <div class="col-9 pl-4">
-          <div class="row small text-secondary">
-            Articulo nro: <%- element.idarticulos %>
+<body>
+  <%- include("partials/navbar") %>
+  <div class="container mt-5">
+    <% articulos.forEach(element => { %>
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-10">
+        <div class="row border p-2">
+          <div class="col-9 pl-4">
+            <div class="row small text-secondary">
+              Articulo nro: <%- element.idarticulos %>
+            </div>
+            <div class="row h5 "><%- element.titulo %></div>
+            <div class="row pl-2"><%- element.contenido.substring(0,100) %>...</div>
           </div>
-          <div class="row h5 "><%- element.titulo %></div>
-          <div class="row pl-2"><%- element.contenido.substring(0,100) %>...</div>
-        </div>
-        <div class="col-3 d-flex justify-content-between align-items-center">
-          <a
-            class="btn btn-success"
-            href="/articulo?articuloID=<%- element.idarticulos %>"
-          >
-            Ver</a
-          >
-          <a class="btn btn-warning" href="#"> Editar </a>
-          <a
-            class="btn btn-danger"
-            href="/borrararticulo?articuloID=<%- element.idarticulos %>"
-          >
-            Borrar
-          </a>
+          <div class="col-3 d-flex justify-content-between align-items-center">
+            <a class="btn btn-success" href="/articulo?articuloID=<%- element.idarticulos %>">
+              Ver</a>
+            <a class="btn btn-warning" href="#"> Editar </a>
+            <a class="btn btn-danger" href="/borrararticulo?articuloID=<%- element.idarticulos %>">
+              Borrar
+            </a>
+          </div>
         </div>
       </div>
+      <div class="col-1"></div>
     </div>
-    <div class="col-1"></div>
-    </div>
-      <% }) %>
-    </div>
-  </body>
+    <% }) %>
+  </div>
+</body>
+
 </html>

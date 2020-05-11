@@ -1,31 +1,27 @@
 <div class="container">
   <% articulos.forEach(element => { %>
-    <a class="nounderline" href="/articulo?articuloID=<%- element.idarticulos %>"><div class="row border nounderline rounded m-1 p-3">
-    <div class="col-4">
-      <div class="titleArticulo">
-        <%- element.titulo %> - Articulo nro: <%- element.idarticulos %>
+  <a class="nounderline" href="/articulo?articuloID=<%- element.idarticulos %>">
+    <div class="row border border-primary nounderline rounded m-1 p-3">
+      <div class="col-4">
+        <div class="titleArticulo">
+          <%- element.titulo %> - Articulo nro: <%- element.idarticulos %>
+        </div>
+        <div class="autor">
+          Autor: <%- element.first_name %> <%- element.last_name %>
+        </div>
+        <div class="mailAutor">Email: <%- element.email %></div>
       </div>
-      <div class="autor">
-        Autor: <%- element.first_name %> <%- element.last_name %>
+      <div class="col-5 d-flex justify-content-center align-items-center">
+        <div class="contenido">
+          <%- element.contenido.substring(0,150) %>...
+
+        </div>
       </div>
-      <div class="mailAutor">Email: <%- element.email %></div>
-    </div>
-    <div class="col-5 d-flex justify-content-center align-items-center">
-      <div class="contenido">
-        <%- element.contenido.substring(0,150) %>...
-  
+      <div class="col-3 d-flex justify-content-center align-items-center">
+        <img class="img-thumbnail border-primary" src="<%- element.avatar %>" alt="" width="200"
+          height="200" />
       </div>
     </div>
-    <div class="col-3 d-flex justify-content-center align-items-center">
-      <img
-        class="img-thumbnail"
-        src="<%- element.avatar %>"
-        alt=""
-        width="200"
-        height="200"
-      />
-    </div>
-  </div>
-</a>
+  </a>
   <% }) %>
 </div>
