@@ -7,6 +7,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 app.use(express.static("public/css"));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", function (req, res) {
   DBLocal.getData(function (articlesDB) {
@@ -27,10 +28,22 @@ app.get("/articulo", function (req, res) {
 app.get("/modificararticulo", function (req, res) {
   const articuloID = req.query.articuloID;
   DBLocal.getData(function (articlesDB) {
-    console.log(articlesDB);
+    //console.log(articlesDB);
     res.render("modificararticulo", { articulo: articlesDB });
   }, DBLocal.queryGetArticle + articuloID);
 });
+
+app.get("/setarticulo", function (req, res) {
+  const articuloID = req.query.articuloID;
+  const articulomodificado = req.query.articulomodificado;
+  console.log(articuloID, articulomodificado)
+  DBLocal.getData(function (articlesDB) {
+    //console.log(articlesDB);
+    res.redirect("/adminpanel");
+  }, DBLocal.updateArticle1 + "'" + articulomodificado + "'" + DBLocal.updateArticle2 + articuloID);
+});
+
+
 
 app.get("/borrararticulo", function (req, res) {
   const articuloID = req.query.articuloID;

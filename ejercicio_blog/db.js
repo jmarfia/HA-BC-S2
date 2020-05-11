@@ -32,5 +32,7 @@ module.exports ={
   queryLatestArticles: articulo.queryLatestArticles,
   queryGetArticle: articulo.queryGetArticle,
   queryDeleteArticle: articulo.queryDeleteArticle,
-  queryGetArticleComments: articulo.queryGetArticleComments
+  queryGetArticleComments: articulo.queryGetArticleComments,
+  updateArticle1: articulo.updateArticle1,
+  updateArticle2: articulo.updateArticle2
 }

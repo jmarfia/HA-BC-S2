@@ -38,13 +38,9 @@ const queryDeleteArticle = `DELETE
 FROM autores.articulos as art
 where art.idarticulos = `
 
-const updateArticle1 = `
-UPDATE autores.articulos
-SET autores.articulos.contenido = 
-WHERE autores.articulos.idarticulos = `
-const updateArticle2 = `
-UPDATE autores.articulos
-SET autores.articulos.contenido = 
+const updateArticle1 = `UPDATE autores.articulos
+SET autores.articulos.contenido = `
+const updateArticle2 = ` 
 WHERE autores.articulos.idarticulos = `
 
 
@@ -56,5 +52,7 @@ module.exports = {
     queryLatestArticles: queryLatestArticles,
     queryGetArticle: queryGetArticle,
     queryDeleteArticle: queryDeleteArticle,
-    queryGetArticleComments: queryGetArticleComments
+    queryGetArticleComments: queryGetArticleComments,
+    updateArticle1: updateArticle1,
+    updateArticle2: updateArticle2
 }

@@ -11,7 +11,9 @@
             <div class="h4">
               <%- articulo[0].titulo %> - Articulo nro: <%- articulo[0].idarticulos %>
             </div>
-            <textarea class="text-muted form-control"><%- articulo[0].contenido %></textarea>
+            <form action="/setarticulo" method="GET">
+            <textarea id="articulomodificado" name="articulomodificado" class="text-muted form-control"><%- articulo[0].contenido %></textarea>
+            <input type="text" class="d-none" name="articuloID" id="articuloID" value=<%- articulo[0].idarticulos %>>
 
             <div>Autor: <%- articulo[0].first_name %> <%- articulo[0].last_name %></div>
             <div>Email: <%- articulo[0].email %></div>
@@ -26,7 +28,7 @@
             height="200"
           />
         </div>
-
+<button type="submit" class="btn btn-warning">Guardar cambios</button></form>
       </div>
       <div class="h5">Comentarios
       <% articulo.forEach(comentario => { %>
