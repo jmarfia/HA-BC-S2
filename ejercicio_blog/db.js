@@ -15,9 +15,9 @@ function getData(callback, query) {
     console.log("¡Nos conectamos a la BD!");
   });
 
-  connection.query(query, function (err, users) {
+  connection.query(query, function (err, data) {
     if (err) throw err;
-    callback(users);
+    callback(data);
   });
   connection.end();
 }
