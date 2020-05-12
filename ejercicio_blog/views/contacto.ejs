@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/header") %>
+
+<body>
+    <div id="navbar" class=""><%- include("partials/navbar") %></div>
+    <div class="container">
+        <div class="row border border-primary rounded mb-3 mt-3 p-3">
+            <div class="col-2">
+                <img class="img-thumbnail border-primary"
+                    src="data:image/jpeg;base64,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"
+                    alt="exelente programador">
+            </div>
+            <div
+                class="col-10 justify-content-center align-items-center font-weight-bold textoContacto">
+                <h3>Juan Marfia</h3>
+                Exelente programador creador del Loreal ipsum, escritor de la autobiografia de Paco
+                Casar y seguidor aferrimo de la teoria de la teoria del codigo limpio. Cofundador de
+                la gran empresa MichiMichi y cocreador del conocicimo blog JuanEnzoBlog.Gran amante
+                de los animales y poseedor de un canino fiel el cual lo acompaña en cada uno de sus
+                proyectos sin importar el lugar ni el momento.
+            </div>
+        </div>
+        <div class="row border border-primary rounded mb-3 mt-3 p-3">
+            <div class="col-2">
+                <img class="img-thumbnail border-primary"
+                    src="https://pbs.twimg.com/profile_images/876204074676477952/VqZnLTfx.jpg"
+                    alt="un tipazo">
+            </div>
+            <div
+                class="col-10 justify-content-center align-items-center font-weight-bold textoContacto">
+                <h3>Enzo Guerra</h3>
+                Un tipazo, tiene un avestruz en el comedor
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
