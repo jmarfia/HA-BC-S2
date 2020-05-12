@@ -1,6 +1,5 @@
 const DBLocal = require("../db");
 
-
 module.exports = {
 
   //trae todos los articulos, debe llamarse cuando queres ir a /
@@ -70,6 +69,8 @@ module.exports = {
     }, DBLocal.queryDeleteArticle + articuloID);
     //res.end(); no se por que no me anda si pongo el res.end
   },
+
+  
   contacto (req, res) {
     res.render("contacto");
   }

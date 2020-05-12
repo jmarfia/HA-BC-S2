@@ -7,7 +7,7 @@ function getData(callback, query) {
     host: "localhost",
     user: "root",
     password: "root",
-    database: "autores",
+    database: "blogdb",
   });
 
   connection.connect(function (err) {
@@ -35,4 +35,9 @@ module.exports ={
   queryGetArticleComments: articulo.queryGetArticleComments,
   updateArticle1: articulo.updateArticle1,
   updateArticle2: articulo.updateArticle2
-}
+
+  }
+
+
+
+
