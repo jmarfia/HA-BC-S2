@@ -35,7 +35,7 @@ app.get("/modificararticulo", function (req, res) {
 app.get("/setarticulo", function (req, res) { //post req.body
   const articuloID = req.query.articuloID;
   const articulomodificado = req.query.articulomodificado;
-  console.log(articuloID, articulomodificado)
+  console.log(articuloID, articulomodificado);
   DBLocal.getData(function (articlesDB) {
     //console.log(articlesDB);
     res.redirect("/adminpanel");
@@ -64,6 +64,10 @@ app.post("/asf", function (req, res) {
   var query1 = req.body.fruta;
   fruitList.push(query1);
   res.render("index", { value: fruitList });
+});
+
+app.get("/contacto", function (req, res) {
+  res.render("contacto");
 });
 
 app.listen(3000);

@@ -1,7 +1,6 @@
-/* #navbar {
-  width: 100%;
-  z-index: 1;
-} */
+body {
+  margin-top: 90px;
+}
 .titleArticulo {
   font-size: 35px;
   font-weight: 900;
@@ -25,4 +24,7 @@
 .nounderline:hover {
   opacity: 0.5;
   text-decoration: none;
+}
+.textoContacto {
+  font-size: 20px;
 }
