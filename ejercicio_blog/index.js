@@ -1,20 +1,19 @@
 const http = require("http");
 const express = require("express");
 const DBLocal = require("./db");
-var bodyParser = require("body-parser");
 
 const app = express();
 
 app.set("view engine", "ejs");
 app.use(express.static("public/css"));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", function (req, res) {
+
   DBLocal.getData(function (articlesDB) {
-    //console.log(articlesDB);
     res.render("home", { articulos: articlesDB });
   }, DBLocal.queryAllArticles);
-  //res.end(); no se por que no me anda si pongo el res.end
+  
 });
 
 app.get("/articulo", function (req, res) {
@@ -33,7 +32,7 @@ app.get("/modificararticulo", function (req, res) {
   }, DBLocal.queryGetArticle + articuloID);
 });
 
-app.get("/setarticulo", function (req, res) {
+app.get("/setarticulo", function (req, res) { //post req.body
   const articuloID = req.query.articuloID;
   const articulomodificado = req.query.articulomodificado;
   console.log(articuloID, articulomodificado)
@@ -42,8 +41,6 @@ app.get("/setarticulo", function (req, res) {
     res.redirect("/adminpanel");
   }, DBLocal.updateArticle1 + "'" + articulomodificado + "'" + DBLocal.updateArticle2 + articuloID);
 });
-
-
 
 app.get("/borrararticulo", function (req, res) {
   const articuloID = req.query.articuloID;
