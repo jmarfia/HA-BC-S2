@@ -1,19 +1,19 @@
 const http = require("http");
 const express = require("express");
 const DBLocal = require("./db");
+const path = require("path");
 
 const app = express();
 
 app.set("view engine", "ejs");
-app.use(express.static("public/css"));
+// app.use(express.static("/public"));
+app.use("/", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", function (req, res) {
-
   DBLocal.getData(function (articlesDB) {
     res.render("home", { articulos: articlesDB });
   }, DBLocal.queryAllArticles);
-  
 });
 
 app.get("/articulo", function (req, res) {
@@ -32,7 +32,8 @@ app.get("/modificararticulo", function (req, res) {
   }, DBLocal.queryGetArticle + articuloID);
 });
 
-app.get("/setarticulo", function (req, res) { //post req.body
+app.get("/setarticulo", function (req, res) {
+  //post req.body
   const articuloID = req.query.articuloID;
   const articulomodificado = req.query.articulomodificado;
   console.log(articuloID, articulomodificado);
