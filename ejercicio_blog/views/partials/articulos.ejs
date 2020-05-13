@@ -6,7 +6,10 @@
         <div class="titleArticulo">
           <%- element.titulo %> - Articulo nro: <%- element.idarticulos %>
         </div>
-
+        <div class="autor">
+          Autor: <%- element.author.firstName %> <%- element.author.lastName %>
+        </div>
+        <div class="mailAutor">Email: <%- element.author.email %></div>
       </div>
       <div class="col-5 d-flex justify-content-center align-items-center">
         <div class="contenido">

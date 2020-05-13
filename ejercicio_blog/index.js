@@ -7,7 +7,7 @@ const articleModel = require("./modelos/article")
 
 const app = express();
 app.set("view engine", "ejs");
-app.use("/", express.static(path.join(__dirname, "public")));
+app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", postController.getAllArticles);
@@ -17,7 +17,7 @@ app.get("/setarticulo", postController.updateArticleById);
 app.get("/borrararticulo", postController.deleteArticleById);
 app.get("/adminpanel", postController.adminPanel);
 app.get("/contacto", postController.contacto);
-app.get("/pruebasqlz", postController.sqlz);
+//app.get("/pruebasqlz", postController.sqlz);
 
 //router.get("/articulo/:id", (req, res) => { articleController.getOneArticle(req) }); //el de santiago
 //app/get("/articulos", funcionautomaticamente toma como parametro req y res)
