@@ -1,10 +1,10 @@
 <div class="container">
   <% articulos.forEach(element => { %>
-  <a class="nounderline" href="/articulo?articuloID=<%- element.idarticulos %>">
+  <a class="nounderline" href="/articulo?articuloID=<%- element.id %>">
     <div class="row border border-primary nounderline rounded mb-3 mt-3 p-3">
       <div class="col-4">
         <div class="titleArticulo">
-          <%- element.titulo %> - Articulo nro: <%- element.idarticulos %>
+          <%- element.titulo %> - Articulo nro: <%- element.id %>
         </div>
         <div class="autor">
           Autor: <%- element.author.firstName %> <%- element.author.lastName %>

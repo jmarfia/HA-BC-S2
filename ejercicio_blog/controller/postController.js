@@ -13,13 +13,24 @@ module.exports = {
 
   //trae un articulo, debes llamarla para ir a la vista de un articulo solo /articulo
   //show
-  getArticleById(req, res) {
+  async getArticleById(req, res){
     const articuloID = req.query.articuloID;
-    DBLocal.getData(function (articlesDB) {
-      console.log(articlesDB);
-      res.render("articulo", { articulo: articlesDB });
-    }, DBLocal.queryGetArticle + articuloID);
+    console.log("asdasdfasdf",articuloID);
+    const articles = await Article.findByPk(articuloID,{
+      include: [Author]
+    });
+    console.log("ARTICLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE", articles)
+    res.render("articulo", { articulo: articles });
   },
+  
+  
+  // {
+  //   const articuloID = req.query.articuloID;
+  //   DBLocal.getData(function (articlesDB) {
+  //     console.log(articlesDB);
+  //     res.render("articulo", { articulo: articlesDB });
+  //   }, DBLocal.queryGetArticle + articuloID);
+  // },
 
   //trae un articulo en la vista de edicion de articulo /modificararticulo
   //edit
