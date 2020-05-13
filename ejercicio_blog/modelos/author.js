@@ -49,32 +49,18 @@ Author.sync();
 
 const Op = Sequelize.Op;
 
-function encontrarAutor(paramId) {
-  Author.findAll({
-    where: {
-      id: paramId,
-    },
-  }).then((authors) => {
-    console.log("User:", JSON.stringify(authors, null, 4));
+function getAuthorById(parmID, callback) {
+    Author.findAll({
+        where: {
+          id: parmID,
+        },
+      }).then((author) => {
+    callback(author)
   });
 }
-
-
-
-function crearAutor(){
-
-Author.create({ firstName: "Pepito", lastName: "Sueco", email: "sueco@hla.com"});
-
-Author.findAll().then((authors) => {
-    console.log("Users:", JSON.stringify(authors, null, 4));
-  });
-} 
-// Author.findAll().then(authors => {
-//   console.log("All users:", JSON.stringify(authors, null, 4));
-// });
-
-
-module.exports= {
-    encontrarAutor: encontrarAutor,
-    crearAutor: crearAutor
-}
+module.exports = {
+    getAuthorById: getAuthorById,
+    function (sequelize, DataTypes) {
+        Author
+    }
+};
