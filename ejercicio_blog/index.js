@@ -3,6 +3,7 @@ const express = require("express");
 const db = require("./db");
 const postController = require("./controller/postController");
 const path = require("path");
+const articleModel = require("./modelos/article")
 
 const app = express();
 app.set("view engine", "ejs");
@@ -20,7 +21,6 @@ app.get("/pruebasqlz", postController.sqlz);
 
 //router.get("/articulo/:id", (req, res) => { articleController.getOneArticle(req) }); //el de santiago
 //app/get("/articulos", funcionautomaticamente toma como parametro req y res)
-
-
+//articleModel.getArticles2((data) => console.log(data))
 
 app.listen(3000);

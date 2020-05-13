@@ -63,24 +63,25 @@ function getArticles(callback) {
   });
 }
 
-function getArticles2(callback) {
-  Article.findAll({
-    include: [{
-      model: authorModel.function,
-      required: true
-     }]
-  }).then((articles) => {
-    callback(articles)
-    //console.log("All users:", JSON.stringify(pepe, null, 4));
-  });
-}
+// function getArticles2(callback) {
+//   Article.findAll({
+//     include: [{
+//       model: author,
+//       required: true
+//      }]
+//   }).then((articles) => {
+//     callback(articles)
+//     //console.log("All users:", JSON.stringify(pepe, null, 4));
+//   });
+// }
 
 
 
 
 
 module.exports = {
-  getArticles: getArticles,
+  getArticles
+  //getArticles2
 };
 
 

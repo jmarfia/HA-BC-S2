@@ -59,8 +59,5 @@ function getAuthorById(parmID, callback) {
   });
 }
 module.exports = {
-    getAuthorById: getAuthorById,
-    function (sequelize, DataTypes) {
-        Author
-    }
+    getAuthorById
 };
