@@ -29,6 +29,7 @@ body {
 }
 footer {
   background-color: #b58900;
+  margin-top: 100px;
 }
 .footerItem {
   font-size: 20px;
