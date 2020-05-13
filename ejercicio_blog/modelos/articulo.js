@@ -1,47 +1,47 @@
 const queryAllArticles = `SELECT * 
-FROM blogdb.articulos
-JOIN blogdb.autores
-ON blogdb.articulos.id_autores = blogdb.autores.id_autores`
+FROM autores.articulos
+JOIN autores.autores
+ON autores.articulos.id_autores = autores.autores.id_autores`
 
 const queryFirstArticle = `SELECT *
-FROM blogdb.articulos
-JOIN blogdb.autores
-ON blogdb.articulos.id_autores = blogdb.autores.id_autores 
+FROM autores.articulos
+JOIN autores.autores
+ON autores.articulos.id_autores = autores.autores.id_autores 
 LIMIT 1`
 
 const queryHeaderArticles = `SELECT *
-FROM blogdb.articulos
-JOIN blogdb.autores
-ON blogdb.articulos.id_autores = blogdb.autores.id_autores 
-WHERE blogdb.articulos.idarticulos > 1 
-AND blogdb.articulos.idarticulos < 6`
+FROM autores.articulos
+JOIN autores.autores
+ON autores.articulos.id_autores = autores.autores.id_autores 
+WHERE autores.articulos.idarticulos > 1 
+AND autores.articulos.idarticulos < 6`
 
 const queryLatestArticles = `SELECT *
-FROM blogdb.articulos
-JOIN blogdb.autores
-ON blogdb.articulos.id_autores = blogdb.autores.id_autores 
-WHERE blogdb.articulos.idarticulos > 5`
+FROM autores.articulos
+JOIN autores.autores
+ON autores.articulos.id_autores = autores.autores.id_autores 
+WHERE autores.articulos.idarticulos > 5`
 
 const queryGetArticle = `SELECT *
-FROM blogdb.articulos
-JOIN blogdb.autores
-ON blogdb.articulos.id_autores = blogdb.autores.id_autores 
-LEFT JOIN blogdb.comentarios
-ON blogdb.comentarios.idarticulo = blogdb.articulos.idarticulos
-WHERE blogdb.articulos.idarticulos = `
+FROM autores.articulos
+JOIN autores.autores
+ON autores.articulos.id_autores = autores.autores.id_autores 
+LEFT JOIN autores.comentarios
+ON autores.comentarios.idarticulo = autores.articulos.idarticulos
+WHERE autores.articulos.idarticulos = `
 
 const queryGetArticleComments = `SELECT *
-FROM blogdb.comentarios
-where blogdb.comentarios.idarticulo = `
+FROM autores.comentarios
+where autores.comentarios.idarticulo = `
 
 const queryDeleteArticle = `DELETE 
-FROM blogdb.articulos as art
+FROM autores.articulos as art
 where art.idarticulos = `
 
-const updateArticle1 = `UPDATE blogdb.articulos
-SET blogdb.articulos.contenido = `
+const updateArticle1 = `UPDATE autores.articulos
+SET autores.articulos.contenido = `
 const updateArticle2 = ` 
-WHERE blogdb.articulos.idarticulos = `
+WHERE autores.articulos.idarticulos = `
 
 
 

@@ -1,11 +1,10 @@
 const http = require("http");
 const express = require("express");
-const db = require("./db");
+const DBLocal = require("./db");
+const postController = require("./controller/postController");
 const path = require("path");
-const postController = require("./controller/postController")
 
 const app = express();
-
 app.set("view engine", "ejs");
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: false }));
@@ -21,6 +20,7 @@ app.get("/contacto", postController.contacto);
 //router.get("/articulo/:id", (req, res) => { articleController.getOneArticle(req) }); //el de santiago
 //app/get("/articulos", funcionautomaticamente toma como parametro req y res)
 
+<<<<<<< HEAD
 
 ////////////////////////////////////////////////////////////////////////////////////////
 const Sequelize = require('sequelize');
@@ -43,3 +43,6 @@ sequelize
 ////////////////////////////////////////////////////////////////////////////////////////
 
 app.listen(3000, console.log("Servidor en el puerto 3000"));
+=======
+app.listen(3000);
+>>>>>>> parent of 0db6643... todo con controller
