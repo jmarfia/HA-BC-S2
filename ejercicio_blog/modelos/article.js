@@ -1,5 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
+const authorModel = require("../modelos/author");
+ 
 
 // instancia de sqlz con credenciales
 const sequelize = new Sequelize("ejblogdb", "root", "root", {
@@ -54,15 +56,34 @@ Article.sync();
 
 const Op = Sequelize.Op;
 
-function encontrarArticulo(paramId) {
-  Article.findAll({
-    where: {
-      id: paramId,
-    },
-  }).then((article) => {
-    console.log("articulo:", JSON.stringify(article, null, 4));
+function getArticles(callback) {
+  Article.findAll().then((articles) => {
+    callback(articles)
+    //console.log("All users:", JSON.stringify(pepe, null, 4));
   });
 }
+
+function getArticles2(callback) {
+  Article.findAll({
+    include: [{
+      model: authorModel.function,
+      required: true
+     }]
+  }).then((articles) => {
+    callback(articles)
+    //console.log("All users:", JSON.stringify(pepe, null, 4));
+  });
+}
+
+
+
+
+
+module.exports = {
+  getArticles: getArticles,
+};
+
+
 
 // function crearAutor(){
 
@@ -72,22 +93,18 @@ function encontrarArticulo(paramId) {
 //     console.log("Users:", JSON.stringify(authors, null, 4));
 //   });
 // }
-let pepe = {};
-function getArticles() {
-  Article.findAll().then((articles) => {
-    //pepe = articles;
-    //console.log("All users:", JSON.stringify(pepe, null, 4));
-  });
-  return pepe;
-}
 
-function getArticles2(callback) {
-  Article.findAll().then((articles) => {
-    callback(articles)
-    //console.log("All users:", JSON.stringify(pepe, null, 4));
-  });
-}
-module.exports = {
-  getArticles: getArticles,
-  getArticles2: getArticles2
-};
+
+// function encontrarArticulo(paramId) {
+//   Article.findAll({
+//     where: {
+//       id: paramId,
+//     },
+//   }).then((article) => {
+//     console.log("articulo:", JSON.stringify(article, null, 4));
+//   });
+// }
+
+
+
+

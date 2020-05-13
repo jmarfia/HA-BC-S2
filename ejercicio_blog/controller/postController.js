@@ -6,8 +6,7 @@ module.exports = {
   //trae todos los articulos, debe llamarse cuando queres ir a /
   //index
   getAllArticles(req, res) {
-    articleModel.getArticles2((data) => res.render("home", { articulos: data }))
-    
+    articleModel.getArticles((data) => res.render("home", { articulos: data }))
   },
 
   //trae un articulo, debes llamarla para ir a la vista de un articulo solo /articulo
