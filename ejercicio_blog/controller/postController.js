@@ -1,17 +1,16 @@
-const DBLocal = require("../db");
-
+const db = require("../db");
+const authorModel = require("../modelos/author");
+const articleModel = require("../modelos/article");
 
 module.exports = {
-
   //trae todos los articulos, debe llamarse cuando queres ir a /
   //index
   getAllArticles(req, res) {
-    DBLocal.getData(function (articlesDB) {
-      res.render("home", { articulos: articlesDB });
-    }, DBLocal.queryAllArticles);
+    articleModel.getArticles2((data) => res.render("home", { articulos: data }))
+    
   },
 
-  //trae un articulo, debes llamarla para ir a la vista de un articulo solo /articulo 
+  //trae un articulo, debes llamarla para ir a la vista de un articulo solo /articulo
   //show
   getArticleById(req, res) {
     const articuloID = req.query.articuloID;
@@ -70,7 +69,11 @@ module.exports = {
     }, DBLocal.queryDeleteArticle + articuloID);
     //res.end(); no se por que no me anda si pongo el res.end
   },
-  contacto (req, res) {
+  contacto(req, res) {
     res.render("contacto");
-  }
+  },
+
+  sqlz(req, res) {
+    res.send(authorModel.encontrarAutor(1));
+  },
 };

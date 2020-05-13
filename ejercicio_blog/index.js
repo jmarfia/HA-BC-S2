@@ -4,7 +4,7 @@ const db = require("./db");
 const postController = require("./controller/postController");
 const path = require("path");
 
-const modeloAuthor = require("./modelos/author")
+const articleModel = require("./modelos/article");
 
 const app = express();
 app.set("view engine", "ejs");
@@ -18,12 +18,10 @@ app.get("/setarticulo", postController.updateArticleById);
 app.get("/borrararticulo", postController.deleteArticleById);
 app.get("/adminpanel", postController.adminPanel);
 app.get("/contacto", postController.contacto);
+app.get("/pruebasqlz", postController.sqlz);
+
 //router.get("/articulo/:id", (req, res) => { articleController.getOneArticle(req) }); //el de santiago
 //app/get("/articulos", funcionautomaticamente toma como parametro req y res)
-
-
-modeloAuthor.encontrarAutor(2);
-modeloAuthor.crearAutor();
 
 
 
