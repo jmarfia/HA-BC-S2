@@ -45,6 +45,8 @@ Author.init(
   }
 );
 
+Author.sync();
+
 const Op = Sequelize.Op;
 
 function encontrarAutor(paramId) {
@@ -57,11 +59,22 @@ function encontrarAutor(paramId) {
   });
 }
 
-module.exports= {
-    encontrarAutor: encontrarAutor
-}
-//Author.create({ firstName: "Jane", lastName: "Doe", email: "keahi@gmail.com"})
 
+
+function crearAutor(){
+
+Author.create({ firstName: "Pepito", lastName: "Sueco", email: "sueco@hla.com"});
+
+Author.findAll().then((authors) => {
+    console.log("Users:", JSON.stringify(authors, null, 4));
+  });
+} 
 // Author.findAll().then(authors => {
 //   console.log("All users:", JSON.stringify(authors, null, 4));
 // });
+
+
+module.exports= {
+    encontrarAutor: encontrarAutor,
+    crearAutor: crearAutor
+}

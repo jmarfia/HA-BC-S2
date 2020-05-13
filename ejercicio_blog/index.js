@@ -23,6 +23,7 @@ app.get("/contacto", postController.contacto);
 
 
 modeloAuthor.encontrarAutor(2);
+modeloAuthor.crearAutor();
 
 
 
