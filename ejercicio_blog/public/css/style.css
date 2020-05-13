@@ -27,3 +27,16 @@ body {
 .textoContacto {
   font-size: 20px;
 }
+footer {
+  background-color: #b58900;
+}
+.footerItem {
+  font-size: 20px;
+  font-weight: 100;
+  color: #ffffff;
+}
+#copyright {
+  font-size: 20px;
+  font-weight: 100;
+  color: #ffffff;
+}
