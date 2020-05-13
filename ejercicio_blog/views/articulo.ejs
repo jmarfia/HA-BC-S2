@@ -9,16 +9,16 @@
       <div class="col-9">
 
         <div class="">
-          <div class="h4">
+          <div class="titleArticulo">
             <%- articulo[0].titulo %> - Articulo nro: <%- articulo[0].idarticulos %>
           </div>
-          <div class="text-muted"><%- articulo[0].contenido %></div>
+          <div class="contenido"><%- articulo[0].contenido %></div>
 
-          <div>Autor: <%- articulo[0].first_name %> <%- articulo[0].last_name %></div>
-          <div>Email: <%- articulo[0].email %></div>
+          <div class="autor">Autor: <%- articulo[0].first_name %> <%- articulo[0].last_name %></div>
+          <div class="mailAutor">Email: <%- articulo[0].email %></div>
         </div>
       </div>
-      <div class="col-3 d-flex justify-content-center align-items-center">
+      <div class="col-3 mt-4 justify-content-center align-items-center">
         <img class="img-thumbnail border-primary" src="<%- articulo[0].avatar %>" alt="" width="200"
           height="200" />
       </div>
