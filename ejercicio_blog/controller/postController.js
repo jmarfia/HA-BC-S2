@@ -2,8 +2,8 @@ const db = require("../db");
 const { Author, Article } = require("../modelos");
 
 module.exports = {
-  //trae todos los articulos, debe llamarse cuando queres ir a /
-  //index
+
+  //trae todos los articulos, debe llamarse cuando queres ir a / ----//index
   async getAllArticles(req, res) {
     const articles = await Article.findAll({
       include: [Author],
@@ -11,8 +11,7 @@ module.exports = {
     res.render("home", { articulos: articles });
   },
 
-  //trae un articulo, debes llamarla para ir a la vista de un articulo solo /articulo
-  //show
+  //trae un articulo, debes llamarla para ir a la vista de un articulo solo /articulo ----//show
   async getArticleById(req, res) {
     const articuloID = req.query.articuloID;
     const articles = await Article.findByPk(articuloID, {
@@ -21,8 +20,7 @@ module.exports = {
     res.render("articulo", { articulo: articles });
   },
 
-  //trae un articulo en la vista de edicion de articulo /modificararticulo
-  //edit
+  //trae un articulo en la vista de edicion de articulo /modificararticulo ----//edit
   async editArticleById(req, res) {
     const articuloID = req.query.articuloID;
     const articles = await Article.findByPk(articuloID, {
@@ -39,9 +37,7 @@ module.exports = {
     res.render("adminpanel", { articulos: articles });
   },
 
-  //tiene que ser un post, manda lo editado en la vista modificar articulo a la base, y redirige a /adminpanel donde se visualizara todo actualizado
-  //update
-  //setarticulo
+  //tiene que ser un post, manda lo editado en la vista modificar articulo a la base, y redirige a /adminpanel donde se visualizara todo actualizado ----//update ----//setarticulo
   async updateArticleById(req, res) {
     //post req.body
     const articuloID = req.query.articuloID;
@@ -60,8 +56,7 @@ module.exports = {
     res.render("articulo", { articulo: articles });
   },
 
-  //ejecuta la consulta que borra un articulo y te redirige a /adminpanel
-  //destroy
+  //ejecuta la consulta que borra un articulo y te redirige a /adminpanel ----//destroy
  async deleteArticleById(req, res) {
     const articuloID = req.query.articuloID;
    await Article.destroy({

@@ -1,3 +1,9 @@
+//ESTO ES VIEJO, NO LO USAMOS MAS
+//ESTO ES VIEJO, NO LO USAMOS MAS
+//ESTO ES VIEJO, NO LO USAMOS MAS
+//ESTO ES VIEJO, NO LO USAMOS MAS
+//ESTO ES VIEJO, NO LO USAMOS MAS
+
 const mysql = require("mysql");
 const articulo = require("./modelos/articulo")
 
