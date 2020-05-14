@@ -10,32 +10,27 @@
 
         <div class="">
           <div class="titleArticulo">
-            <%- articulo[0].titulo %> - Articulo nro: <%- articulo[0].idarticulos %>
+            <%- articulo.titulo %> - Articulo nro: <%- articulo.id %>
           </div>
           <form action="/setarticulo" method="GET">
             <textarea id="articulomodificado" name="articulomodificado"
               class="text-dark form-control border border-primary "
-              rows="10"><%- articulo[0].contenido %></textarea>
+              rows="10"><%- articulo.contenido %></textarea>
             <input type="text" class="d-none" name="articuloID" id="articuloID"
-              value=<%- articulo[0].idarticulos %>>
+              value=<%- articulo.id %>>
 
-            <div class="autor">Autor: <%- articulo[0].first_name %> <%- articulo[0].last_name %>
+            <div class="autor">Autor: <%- articulo.author.firstName %> <%- articulo.author.lastName %>
             </div>
-            <div class="mailAutor">Email: <%- articulo[0].email %></div>
+            <div class="mailAutor">Email: <%- articulo.author.email %></div>
         </div>
       </div>
       <div class="col-3 d-flex justify-content-center align-items-center">
-        <img class="img-thumbnail border-primary" src="<%- articulo[0].avatar %>" alt="" width="200"
+        <img class="img-thumbnail border-primary" src="<%- articulo.avatar %>" alt="" width="200"
           height="200" />
       </div>
       <button type="submit" class="btn btn-warning">Guardar cambios</button></form>
     </div>
-    <div class="h5">Comentarios
-      <% articulo.forEach(comentario => { %>
-      <div class="row border border-primary rounded ml-1 pl-3 small"><%- comentario.comentario %>
-      </div>
-      <% }) %>
-    </div>
+
   </div>
   <div><%- include("partials/footer") %></div>
 </body>

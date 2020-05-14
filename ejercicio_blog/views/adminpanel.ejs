@@ -15,17 +15,17 @@
               height="200" /></div>
           <div class="col-8 pl-4">
             <div class="row small text-secondary">
-              Articulo nro: <%- element.idarticulos %>
+              Articulo nro: <%- element.id %>
             </div>
             <div class="row h5 "><%- element.titulo %></div>
             <div class="row pl-2"><%- element.contenido.substring(0,100) %>...</div>
           </div>
           <div class="col-3 d-flex justify-content-between align-items-center">
-            <a class="btn btn-success" href="/articulo?articuloID=<%- element.idarticulos %>">
+            <a class="btn btn-success" href="/articulo?articuloID=<%- element.id %>">
               Ver</a>
             <a class="btn btn-warning"
-              href="/modificararticulo?articuloID=<%- element.idarticulos %>"> Editar </a>
-            <a class="btn btn-danger" href="/borrararticulo?articuloID=<%- element.idarticulos %>">
+              href="/modificararticulo?articuloID=<%- element.id %>"> Editar </a>
+            <a class="btn btn-danger" href="/borrararticulo?articuloID=<%- element.id %>">
               Borrar
             </a>
           </div>
