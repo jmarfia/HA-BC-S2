@@ -9,13 +9,29 @@ class AccessController {
 
     static showLogin(req, res) {
 
-        res.render('access/_login', {});
+        const pageData = {
+            title: 'Ingresar',
+            partialView: {
+                path: 'access/_login',
+                data: {}
+            }
+        }
+
+        res.render('access/index', { pageData });
     }
 
 
     static showRegister(req, res) {
 
-        res.render('access/_register', {});
+        const pageData = {
+            title: 'Registro',
+            partialView: {
+                path: 'access/_register',
+                data: {}
+            }
+        }
+
+        res.render('access/index', { pageData });
     }
 
 
@@ -26,7 +42,7 @@ class AccessController {
 
 
     static register(req, res) {
-        
+
         res.redirect('/admin/registro');
     }
 }
