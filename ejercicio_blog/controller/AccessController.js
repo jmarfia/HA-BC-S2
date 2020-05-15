@@ -45,6 +45,11 @@ class AccessController {
 
         res.redirect('/admin/registro');
     }
+
+
+    static logout(req, res) {
+        res.redirect('/');
+    }
 }
 
 
