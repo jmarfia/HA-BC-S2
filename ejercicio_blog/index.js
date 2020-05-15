@@ -9,6 +9,10 @@ const articleModel = require("./modelos/article")
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+const bcrypt = require("bcrypt");
+
+
+
 
 const app = express();
 app.set("view engine", "ejs");
