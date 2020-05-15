@@ -2,6 +2,7 @@ const http = require("http");
 const express = require("express");
 const db = require("./db");
 const postController = require("./controller/postController");
+const AccessCtrl = require("./controller/AccessController");
 const path = require("path");
 const articleModel = require("./modelos/article")
 
@@ -29,11 +30,11 @@ app.get("/contacto", postController.contacto); //ok
 //app.get("/pruebasqlz", postController.sqlz);
 
 //Login/Register EndPoints
-app.get("/registro", (req, res) => {});
-app.post("/registro", (req, res) => {});
-app.get("/login", (req, res) => {});
-app.post("/login", (req, res) => {});
-app.get("/logout", (req, res) => {});
+app.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
+app.post("/registro", (req, res) => AccessCtrl.register(req, res));
+app.get("/login", (req, res) => AccessCtrl.showLogin(req, res));
+app.post("/login", (req, res) => AccessCtrl.login(req, res));
+app.get("/logout", (req, res) => AccessCtrl.logout(req, res));
 
 
 app.listen(3000);

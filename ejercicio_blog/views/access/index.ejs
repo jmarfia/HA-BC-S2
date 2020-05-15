@@ -41,13 +41,13 @@
 
         <!-- Custom styles -->
 
-        <!-- <link rel="stylesheet" href="/css/style.css"> -->
+        <link rel="stylesheet" href="/css/style.css">
 
 
 
 
         <title>
-            Acceso - Admin
+            <%= pageData.title %>
         </title>
 
     </head>
@@ -57,7 +57,7 @@
 
         <!-- MAIN CONTENT SECTION -->
 
-        <!-- AQUÍ SE INCLUYEN LOS FORMULARIOS POR MEDIO DE "include()" -->
+        <%- include(pageData.partialView.path, { pageData.partialView.data }); %>
 
         <!-- END MAIN CONTENT SECTION -->
 
