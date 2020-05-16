@@ -19,6 +19,11 @@ module.exports = function (sequelize, Sequelize) {
         allowNull: false,
         // allowNull defaults to true
       },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        // allowNull defaults to true
+      },
     },
     {
       sequelize,

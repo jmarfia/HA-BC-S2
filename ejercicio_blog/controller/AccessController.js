@@ -37,17 +37,33 @@ class AccessController {
 
     static login(req, res) {
 
-        res.redirect('/admin/ingreso');
+        if(true)
+        {
+            res.redirect('/admin');
+        }
+        else
+        {
+            res.redirect('/admin/ingreso');
+        }
+        
     }
 
 
     static register(req, res) {
 
-        res.redirect('/admin/registro');
+        if(true)
+        {
+            res.redirect('/admin');
+        }
+        else
+        {
+            res.redirect('/admin/ingreso');
+        }
     }
 
 
     static logout(req, res) {
+
         res.redirect('/');
     }
 }
