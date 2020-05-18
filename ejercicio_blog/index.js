@@ -68,7 +68,7 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-/*
+
 //bcryptjs
 bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash("B4c0/\/", salt, function(err, hash) {
@@ -80,7 +80,7 @@ bcrypt.compare("B4c0/\/", hash, function(err, res) {
     //en lugar de bacon hasheado iria la password a comparar hasheada
     // res === true
 });
-*/
+
 // Middleware de acceso.
 const access = () => {
   return (req, res, next) => {
