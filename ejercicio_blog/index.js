@@ -68,6 +68,14 @@ const saltRounds = 10;
 const myPlaintextPassword = "s0//P4$$w0rD";
 const someOtherPlaintextPassword = "not_bacon";
 
+app.get("/adminpanel", (req, res) => {
+  if (req.isAuthenticated()) {
+    postController.adminPanel(req, res)
+  } else {
+    res.redirect("/ingresar");
+  }
+});
+
 app.get("/", postController.getAllArticles); //ok
 app.get("/articulo", postController.getArticleById); //ok
 app.get("/modificararticulo", postController.editArticleById); //ok
@@ -78,11 +86,11 @@ app.get("/contacto", postController.contacto); //ok
 //app.get("/pruebasqlz", postController.sqlz);
 
 //Login/Register EndPoints
-app.get("/admin/registro", (req, res) => AccessCtrl.showRegister(req, res));
-app.post("/admin/registro", (req, res) => AccessCtrl.register(req, res));
-app.get("/admin/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
-app.post("/admin/ingresar", (req, res) => AccessCtrl.login(req, res));
-app.get("/admin/cerrar-sesion", (req, res) =>
+app.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
+app.post("/registro", (req, res) => AccessCtrl.register(req, res));
+app.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
+app.post("/ingresar", (req, res) => AccessCtrl.login(req, res));
+app.get("/cerrar-sesion", (req, res) =>
   AccessCtrl.logout(passport, req, res)
 );
 
