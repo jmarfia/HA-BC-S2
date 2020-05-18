@@ -32,9 +32,9 @@ app.get("/contacto", postController.contacto); //ok
 //Login/Register EndPoints
 app.get("/admin/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/admin/registro", (req, res) => AccessCtrl.register(req, res));
-app.get("/admin/login", (req, res) => AccessCtrl.showLogin(req, res));
-app.post("/admin/login", (req, res) => AccessCtrl.login(req, res));
-app.get("/admin/logout", (req, res) => AccessCtrl.logout(req, res));
+app.get("/admin/ingreso", (req, res) => AccessCtrl.showLogin(req, res));
+app.post("/admin/ingreso", (req, res) => AccessCtrl.login(req, res));
+app.get("/admin/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
 
 
 app.listen(3000);
