@@ -69,10 +69,18 @@ passport.deserializeUser(function (id, done) {
 });
 
 //bcryptjs
-const saltRounds = 10;
-const myPlaintextPassword = "s0//P4$$w0rD";
-const someOtherPlaintextPassword = "not_bacon";
-
+bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash("B4c0/\/", salt, function(err, hash) {
+        // Store hash in your password DB.
+    });
+});
+// Load hash from your password DB.
+bcrypt.compare("B4c0/\/", hash, function(err, res) {
+    // res === true
+});
+bcrypt.compare("not_bacon", hash, function(err, res) {
+    // res === false
+});
 // Middleware de acceso.
 const access = () => {
   return (req, res, next) => {
