@@ -1,9 +1,14 @@
+const bcrypt = require("bcryptjs");
+
+
 module.exports = function (sequelize, Sequelize) {
   //modelo de una tabla
   const Model = Sequelize.Model;
   class Author extends Model {
-    static validPassword(password) {
-      return true;
+    validPassword(password, callback) {
+      bcrypt.compare(password, this.password, (err, isMatch) => {
+        err ? callback(err, false) : callback(null, isMatch);
+      });
     }
   }
   Author.init(

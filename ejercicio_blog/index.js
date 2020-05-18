@@ -12,6 +12,7 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 
@@ -40,16 +41,28 @@ passport.use(
     },
     function (username, password, done) {
       Author.findOne({ where: { email: username } })
-      .then((author) => {
-        if (author === null) {
-          return done(null, false, { message: "Incorrect username." });
-        }
-        if (!Author.validPassword(password)) {
-          return done(null, false, { message: "Incorrect password." });
-        }
-        return done(null, author);
-      })
-      .catch((err) => done(err));
+        .then((author) => {
+          if (author === null) {
+            return done(null, false, { message: "Incorrect username." });
+          }
+
+          author.validPassword(password, (err, isMatch) => {
+            if (isMatch && !err) {
+                
+              const payload = {
+                iat: Math.round(Date.now() / 1000),
+                exp: Math.round(Date.now() / 1000 + 30 * 24 * 60),
+                iss: "",
+                id: author.id,
+              };
+
+              return done(null, author);
+            } else {
+              return done(null, false, { message: "Incorrect password." });
+            }
+          });
+        })
+        .catch((err) => done(err));
     }
   )
 );
@@ -92,9 +105,11 @@ app.get("/contacto", postController.contacto); //ok
 app.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/registro", (req, res) => AccessCtrl.register(req, res));
 app.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
-app.post("/ingresar", passport.authenticate("local", {
-    successRedirect: "/adminpanel",
-    failureRedirect: "/ingresar"
+app.post(
+  "/ingresar",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/ingresar",
   })
 );
 app.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
