@@ -37,8 +37,8 @@ passport.use(
     {
       usernameField: "email",
     },
-    function (email, password, done) {
-      User.find({ where: { email: email } }, function (err, user) {
+    function (username, password, done) {
+      User.find({ where: { email: username } }, function (err, user) {
         if (err) {
           return done(err);
         }
@@ -68,7 +68,7 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-
+/*
 //bcryptjs
 bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash("B4c0/\/", salt, function(err, hash) {
@@ -80,7 +80,7 @@ bcrypt.compare("B4c0/\/", hash, function(err, res) {
     //en lugar de bacon hasheado iria la password a comparar hasheada
     // res === true
 });
-
+*/
 // Middleware de acceso.
 const access = () => {
   return (req, res, next) => {
@@ -105,7 +105,7 @@ app.get("/contacto", postController.contacto); //ok
 app.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/registro", (req, res) => AccessCtrl.register(req, res));
 app.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
-app.post("/ingresar", (req, res) => AccessCtrl.login(req, res));
+app.post("/ingresar", (req, res, next) => AccessCtrl.login(req, res, next));
 app.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
 
 app.listen(3000);

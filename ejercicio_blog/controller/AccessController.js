@@ -29,7 +29,7 @@ class AccessController {
     res.render("access/index", { pageData });
   }
 
-  static login(req, res) {
+  static login(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) { return next(err); }
         if (!user) { return res.redirect('/ingresar'); }
