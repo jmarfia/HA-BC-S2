@@ -36,15 +36,16 @@ class AccessController {
 
 
     static login(req, res) {
+        passport.authenticate("local", {    successRedirect: "/admin",    failureRedirect: "/admin/ingresar",  }) 
 
-        if(true)
-        {
-            res.redirect('/admin');
-        }
-        else
-        {
-            res.redirect('/admin/ingreso');
-        }
+     //   if(true)
+       // {
+       //     res.redirect('/admin');
+       // }
+       // else
+       // {
+         //   res.redirect('/admin/ingreso');
+       // }
         
     }
 

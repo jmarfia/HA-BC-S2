@@ -75,9 +75,7 @@ app.get("/contacto", postController.contacto); //ok
 app.get("/admin/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/admin/registro", (req, res) => AccessCtrl.register(req, res));
 app.get("/admin/ingreso", (req, res) => AccessCtrl.showLogin(req, res));
-app.post("/admin/ingreso", passport.authenticate('local', { successRedirect: '/',
-failureRedirect: '/login',
-failureFlash: true }));
+app.post("/admin/ingreso", (req, res) => { AccessController.login(passport, req, res,) });
 app.get("/admin/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
 
 
