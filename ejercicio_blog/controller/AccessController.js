@@ -29,7 +29,7 @@ class AccessController {
     res.render("access/index", { pageData });
   }
 
-  static login(req, res) {
+  static login(passport, req, res) {
     passport.authenticate("local", {
       successRedirect: "/adminpanel",
       failureRedirect: "/ingresar",
