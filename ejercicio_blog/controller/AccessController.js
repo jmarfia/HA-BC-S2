@@ -31,16 +31,16 @@ class AccessController {
 
   static login(req, res) {
     passport.authenticate("local", {
-      successRedirect: "/admin",
-      failureRedirect: "/admin/ingresar",
+      successRedirect: "/adminpanel",
+      failureRedirect: "/ingresar",
     });
   }
 
   static register(req, res) {
     if (true) {
-      res.redirect("/admin");
+      res.redirect("/adminpanel");
     } else {
-      res.redirect("/admin/ingreso");
+      res.redirect("/registro");
     }
   }
 
