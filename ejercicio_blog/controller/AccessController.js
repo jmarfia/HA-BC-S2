@@ -41,8 +41,8 @@ class AccessController {
   }
 
   static register(req, res) {
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(req.body.password, salt);
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
     Author.create({
       firstName : req.body.firstName,
       lastname : req.body.lastname,
