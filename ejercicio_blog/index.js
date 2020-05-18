@@ -76,11 +76,10 @@ bcrypt.genSalt(10, function(err, salt) {
 });
 // Load hash from your password DB.
 bcrypt.compare("B4c0/\/", hash, function(err, res) {
+    //en lugar de bacon hasheado iria la password a comparar hasheada
     // res === true
 });
-bcrypt.compare("not_bacon", hash, function(err, res) {
-    // res === false
-});
+
 // Middleware de acceso.
 const access = () => {
   return (req, res, next) => {
