@@ -5,6 +5,7 @@ const postController = require("./controller/postController");
 const AccessCtrl = require("./controller/AccessController");
 const path = require("path");
 const articleModel = require("./modelos/article")
+const Sequelize = require("sequelize");
 
 //Requires Login/Register
 const session = require("express-session");
@@ -13,7 +14,18 @@ const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
 
 //Configs a mover de lugar
+//Session
+app.use(
+    session({
+    secret: "AlgúnTextoSuperSecreto",
+    resave: false,
+    saveUninitialized: false,
+    })
+   );
+   
 //Passport
+app.use(passport.initialize());
+app.use(passport.session());
 passport.use(new LocalStrategy({
     usernameField: 'email',
   },
@@ -30,9 +42,19 @@ passport.use(new LocalStrategy({
     });
   }
 ));
-
-
-
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+  });
+  
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+      done(err, user);
+    });
+  });
+//bcrypt
+const saltRounds = 10;
+const myPlaintextPassword = 's0/\/\P4$$w0rD';
+const someOtherPlaintextPassword = 'not_bacon';
 
 
 const app = express();
@@ -53,7 +75,9 @@ app.get("/contacto", postController.contacto); //ok
 app.get("/admin/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/admin/registro", (req, res) => AccessCtrl.register(req, res));
 app.get("/admin/ingreso", (req, res) => AccessCtrl.showLogin(req, res));
-app.post("/admin/ingreso", (req, res) => AccessCtrl.login(req, res));
+app.post("/admin/ingreso", passport.authenticate('local', { successRedirect: '/',
+failureRedirect: '/login',
+failureFlash: true }));
 app.get("/admin/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
 
 
