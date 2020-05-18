@@ -25,8 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     secret: "AlgúnTextoSuperSecreto",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
   })
 );
 
@@ -40,7 +40,7 @@ passport.use(
       passwordField: "password",
     },
     function (username, password, done) {
-      authorModel.findOne({ where: { email: username } }, (err, author) => {
+      authorModel.find({ where: { email: username } }, (err, author) => {
         if (err) {
           return done(err);
         }
@@ -95,7 +95,7 @@ app.get("/contacto", postController.contacto); //ok
 app.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/registro", (req, res) => AccessCtrl.register(req, res));
 app.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
-app.post("/ingresar", (req, res) =>
+app.post("/ingresar",
   passport.authenticate("local", {
     successRedirect: "/adminpanel",
     failureRedirect: "/ingresar",
