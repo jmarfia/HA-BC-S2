@@ -69,22 +69,10 @@ passport.deserializeUser(function (id, done) {
 });
 
 //bcryptjs
-bcrypt.genSalt(10, function(err, salt) {
-    bcrypt.hash("B4c0/\/", salt, function(err, hash) {
-        // Store hash in your password DB.
-    });
-});
-// Load hash from your password DB.
-bcrypt.compare("B4c0/\/", hash, function(err, res) {
-    //en lugar de bacon hasheado iria la password a comparar hasheada
-    if (res===true) {
-        //Te logeas
-    } else {
-        res.redirect("/ingresar")
-    }
-
-});
-
+var salt = bcrypt.genSaltSync(10);
+var hash = bcrypt.hashSync("B4c0/\/", salt);
+// Store hash in your password DB.
+bcrypt.compareSync("B4c0/\/", hash); // true, aca tendria que ir la password hasheada a comparar
 // Middleware de acceso.
 const access = () => {
   return (req, res, next) => {
