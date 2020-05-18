@@ -70,10 +70,10 @@ passport.deserializeUser(function (id, done) {
 
 
 //bcryptjs
-var salt = bcrypt.genSaltSync(10);
-var hash = bcrypt.hashSync("B4c0/\/", salt);
-// Store hash in your password DB.
-bcrypt.compareSync("B4c0/\/", hash); // true, aca tendria que ir la password hasheada a comparar
+// var salt = bcrypt.genSaltSync(10);
+// var hash = bcrypt.hashSync(req.body.password, salt);
+
+// bcrypt.compareSync("B4c0/\/", hash); // true, aca tendria que ir la password hasheada a comparar
 // Middleware de acceso.
 const access = () => {
   return (req, res, next) => {
