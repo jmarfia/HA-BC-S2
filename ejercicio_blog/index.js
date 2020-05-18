@@ -37,8 +37,8 @@ passport.use(
     {
       usernameField: "email",
     },
-    function (username, password, done) {
-      User.findOne({ where: { email: username } }, function (err, user) {
+    function (email, password, done) {
+      User.find({ where: { email: email } }, function (err, user) {
         if (err) {
           return done(err);
         }
@@ -55,16 +55,20 @@ passport.use(
 );
 
 passport.serializeUser(function (user, done) {
-  done(null, user.email);
+  done(null, user.id);
 });
 
-passport.deserializeUser(function (email, done) {
-  User.findOne({ where: { email: email } }, function (err, user) {
-    done(err, user);
-  });
+passport.deserializeUser(function (id, done) {
+  User.findByPk(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch((error) => {
+      done(error, user);
+    });
 });
 
-//bcrypt
+//bcryptjs
 const saltRounds = 10;
 const myPlaintextPassword = "s0//P4$$w0rD";
 const someOtherPlaintextPassword = "not_bacon";
@@ -94,6 +98,6 @@ app.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/registro", (req, res) => AccessCtrl.register(req, res));
 app.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
 app.post("/ingresar", (req, res) => AccessCtrl.login(req, res));
-app.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(passport, req, res));
+app.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
 
 app.listen(3000);
