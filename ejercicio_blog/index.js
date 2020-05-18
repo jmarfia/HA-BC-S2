@@ -37,8 +37,8 @@ passport.use(
     {
       usernameField: "email",
     },
-    function (username, password, done) {
-      User.findOne({ where: { email: username } }, function (err, user) {
+    function (email, password, done) {
+      User.find({ where: { email: email } }, function (err, user) {
         if (err) {
           return done(err);
         }
@@ -55,13 +55,17 @@ passport.use(
 );
 
 passport.serializeUser(function (user, done) {
-  done(null, user.email);
+  done(null, user.id);
 });
 
-passport.deserializeUser(function (email, done) {
-  User.findOne({ where: { email: email } }, function (err, user) {
-    done(err, user);
-  });
+passport.deserializeUser(function (id, done) {
+  User.findByPk(id)
+    .then((user) => {
+      done(null, user);
+    })
+    .catch((error) => {
+      done(error, user);
+    });
 });
 
 //bcrypt
