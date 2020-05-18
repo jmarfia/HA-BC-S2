@@ -1,7 +1,11 @@
 module.exports = function (sequelize, Sequelize) {
   //modelo de una tabla
   const Model = Sequelize.Model;
-  class Author extends Model {}
+  class Author extends Model {
+    static validPassword(password) {
+      return true;
+    }
+  }
   Author.init(
     {
       // attributes
@@ -31,6 +35,7 @@ module.exports = function (sequelize, Sequelize) {
       // options
     }
   );
+
 
   Author.sync();
   return Author;

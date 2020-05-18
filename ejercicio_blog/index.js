@@ -4,9 +4,8 @@ const db = require("./db");
 const postController = require("./controller/postController");
 const AccessCtrl = require("./controller/AccessController");
 const path = require("path");
-const articleModel = require("./modelos/article");
 const Sequelize = require("sequelize");
-const authorModel = require("./modelos/author");
+const { Author } = require("./modelos");
 
 //Requires Login/Register
 const session = require("express-session");
@@ -40,18 +39,17 @@ passport.use(
       passwordField: "password",
     },
     function (username, password, done) {
-      authorModel.find({ where: { email: username } }, (err, author) => {
-        if (err) {
-          return done(err);
-        }
-        if (!author) {
+      Author.findOne({ where: { email: username } })
+      .then((author) => {
+        if (author === null) {
           return done(null, false, { message: "Incorrect username." });
         }
-        if (!author.validPassword(password)) {
+        if (!Author.validPassword(password)) {
           return done(null, false, { message: "Incorrect password." });
         }
         return done(null, author);
-      });
+      })
+      .catch((err) => done(err));
     }
   )
 );
@@ -61,8 +59,7 @@ passport.serializeUser(function (author, done) {
 });
 
 passport.deserializeUser(function (id, done) {
-  authorModel
-    .findByPk(id)
+  Author.findByPk(id)
     .then((author) => {
       done(null, author);
     })
@@ -95,10 +92,11 @@ app.get("/contacto", postController.contacto); //ok
 app.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/registro", (req, res) => AccessCtrl.register(req, res));
 app.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
-app.post("/ingresar",
+app.post(
+  "/ingresar",
   passport.authenticate("local", {
     successRedirect: "/adminpanel",
-    failureRedirect: "/ingresar",
+    failureRedirect: "/ingresar"
   })
 );
 app.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
