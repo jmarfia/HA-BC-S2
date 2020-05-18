@@ -1,5 +1,5 @@
-<main>
-  <div class="container py-5 w-50 w-25">
+<main class="bg-light">
+  <div class="container py-5" style="width: 25rem">
   <section class="login  card">
     <div class="login__header  card-header">
       <h2 class="login__title  text-center">
@@ -8,7 +8,7 @@
     </div>
 
     <div class="login__body  card-body">
-      <form class="login__form  p-2 mb-3">
+      <form method="POST" action="/admin/ingresar" class="login__form  p-2 mb-3">
         <div class="form-group">
           <label class="sr-only" for="email">
             Email
@@ -52,7 +52,7 @@
           </div>
         </div>
 
-        <div class="form-check form-check-inline mb-3">
+        <div class="form-check form-check-inline py-2 mb-3">
           <input
             class="form-check-input"
             id="ckbRemember"
