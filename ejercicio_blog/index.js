@@ -68,20 +68,24 @@ const saltRounds = 10;
 const myPlaintextPassword = "s0//P4$$w0rD";
 const someOtherPlaintextPassword = "not_bacon";
 
-app.get("/adminpanel", (req, res) => {
-  if (req.isAuthenticated()) {
-    postController.adminPanel(req, res)
-  } else {
-    res.redirect("/ingresar");
-  }
-});
+
+// Middleware de acceso.
+const access = () => {
+  return (req, res, next) => {
+    if (req.isAuthenticated()) {
+      next();
+    } else {
+      res.redirect("/ingresar");
+    }
+  };
+};
 
 app.get("/", postController.getAllArticles); //ok
 app.get("/articulo", postController.getArticleById); //ok
-app.get("/modificararticulo", postController.editArticleById); //ok
-app.get("/setarticulo", postController.updateArticleById); //ok
-app.get("/borrararticulo", postController.deleteArticleById); // ok
-app.get("/adminpanel", postController.adminPanel); //ok
+app.get("/modificararticulo", access(), postController.editArticleById); //ok
+app.get("/setarticulo", access(), postController.updateArticleById); //ok
+app.get("/borrararticulo", access(), postController.deleteArticleById); // ok
+app.get("/adminpanel", access(), postController.adminPanel); //ok
 app.get("/contacto", postController.contacto); //ok
 //app.get("/pruebasqlz", postController.sqlz);
 
@@ -90,8 +94,6 @@ app.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/registro", (req, res) => AccessCtrl.register(req, res));
 app.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
 app.post("/ingresar", (req, res) => AccessCtrl.login(req, res));
-app.get("/cerrar-sesion", (req, res) =>
-  AccessCtrl.logout(passport, req, res)
-);
+app.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(passport, req, res));
 
 app.listen(3000);
