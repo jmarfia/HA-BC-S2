@@ -97,7 +97,7 @@ app.get("/contacto", postController.contacto); //ok
 app.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/registro", (req, res) => AccessCtrl.register(req, res));
 app.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
-app.post("/ingresar", (req, res) => AccessCtrl.login(passport, req, res));
-app.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(passport, req, res));
+app.post("/ingresar", (req, res) => AccessCtrl.login(req, res));
+app.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
 
 app.listen(3000);
