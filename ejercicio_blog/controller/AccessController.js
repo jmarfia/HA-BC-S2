@@ -1,6 +1,7 @@
 const db = require("../db");
 const { Author } = require("../modelos");
 const passport = require("passport");
+const bcrypt = require("bcryptjs");
 
 class AccessController {
   constructor() {}
@@ -42,12 +43,13 @@ class AccessController {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
     Author.create({
-      firstName: req.body.firstName,
-      lastname: req.body.lastname,
+      firstName: req.body.firstname,
+      lastName: req.body.lastname,
       email: req.body.email,
       password: hash,
     }).then((author) => {
       console.log(author);
+      res.redirect("/")
     });
   }
 
