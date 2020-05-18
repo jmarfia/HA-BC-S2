@@ -77,7 +77,12 @@ bcrypt.genSalt(10, function(err, salt) {
 // Load hash from your password DB.
 bcrypt.compare("B4c0/\/", hash, function(err, res) {
     //en lugar de bacon hasheado iria la password a comparar hasheada
-    // res === true
+    if (res===true) {
+        //Te logeas
+    } else {
+        res.redirect("/ingresar")
+    }
+
 });
 
 // Middleware de acceso.
