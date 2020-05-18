@@ -30,10 +30,14 @@ class AccessController {
   }
 
   static login(req, res) {
-    passport.authenticate("local", {
-      successRedirect: "/adminpanel",
-      failureRedirect: "/ingresar",
-    });
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) { return res.redirect('/ingresar'); }
+        req.logIn(user, function(err) {
+          if (err) { return next(err); }
+          return res.redirect('/adminpanel');
+        });
+      })(req, res, next);
   }
 
   static register(req, res) {

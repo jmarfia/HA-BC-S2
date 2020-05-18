@@ -17,15 +17,15 @@ const app = express();
 
 app.set("view engine", "ejs");
 app.use("/public", express.static(path.join(__dirname, "public")));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 //Configs a mover de lugar
 //Session
 app.use(
   session({
     secret: "AlgúnTextoSuperSecreto",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
   })
 );
 
@@ -67,6 +67,7 @@ passport.deserializeUser(function (id, done) {
       done(error, user);
     });
 });
+
 
 //bcryptjs
 var salt = bcrypt.genSaltSync(10);
