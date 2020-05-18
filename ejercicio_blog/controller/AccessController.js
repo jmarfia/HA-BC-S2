@@ -29,15 +29,11 @@ class AccessController {
     res.render("access/index", { pageData });
   }
 
-  static login(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-        if (err) { return next(err); }
-        if (!user) { return res.redirect('/ingresar'); }
-        req.logIn(user, function(err) {
-          if (err) { return next(err); }
-          return res.redirect('/adminpanel');
-        });
-      })(req, res, next);
+  static login(passport, req, res, next) {
+    passport.authenticate('local', {
+        successRedirect: '/adminpanel',
+        failureRedirect: '/ingresar'
+    });
   }
 
   static register(req, res) {

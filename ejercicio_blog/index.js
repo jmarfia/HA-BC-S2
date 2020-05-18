@@ -6,6 +6,7 @@ const AccessCtrl = require("./controller/AccessController");
 const path = require("path");
 const articleModel = require("./modelos/article");
 const Sequelize = require("sequelize");
+const authorModel = require("./modelos/author");
 
 //Requires Login/Register
 const session = require("express-session");
@@ -36,44 +37,45 @@ passport.use(
   new LocalStrategy(
     {
       usernameField: "email",
+      passwordField: "password",
     },
     function (username, password, done) {
-      User.find({ where: { email: username } }, function (err, user) {
+      authorModel.findOne({ where: { email: username } }, (err, author) => {
         if (err) {
           return done(err);
         }
-        if (!user) {
+        if (!author) {
           return done(null, false, { message: "Incorrect username." });
         }
-        if (!user.validPassword(password)) {
+        if (!author.validPassword(password)) {
           return done(null, false, { message: "Incorrect password." });
         }
-        return done(null, user);
+        return done(null, author);
       });
     }
   )
 );
 
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
+passport.serializeUser(function (author, done) {
+  done(null, author.id);
 });
 
 passport.deserializeUser(function (id, done) {
-  User.findByPk(id)
-    .then((user) => {
-      done(null, user);
+  authorModel
+    .findByPk(id)
+    .then((author) => {
+      done(null, author);
     })
     .catch((error) => {
-      done(error, user);
+      done(error, author);
     });
 });
 
-
 //bcryptjs
 var salt = bcrypt.genSaltSync(10);
-var hash = bcrypt.hashSync("B4c0/\/", salt);
+var hash = bcrypt.hashSync("B4c0//", salt);
 // Store hash in your password DB.
-bcrypt.compareSync("B4c0/\/", hash); // true, aca tendria que ir la password hasheada a comparar
+bcrypt.compareSync("B4c0//", hash); // true, aca tendria que ir la password hasheada a comparar
 // Middleware de acceso.
 const access = () => {
   return (req, res, next) => {
@@ -98,7 +100,12 @@ app.get("/contacto", postController.contacto); //ok
 app.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/registro", (req, res) => AccessCtrl.register(req, res));
 app.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
-app.post("/ingresar", (req, res, next) => AccessCtrl.login(req, res, next));
+app.post("/ingresar", (req, res) =>
+  passport.authenticate("local", {
+    successRedirect: "/adminpanel",
+    failureRedirect: "/ingresar",
+  })
+);
 app.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
 
 app.listen(3000);
