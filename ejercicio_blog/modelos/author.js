@@ -36,7 +36,6 @@ module.exports = function (sequelize, Sequelize) {
     }
   );
 
-
   Author.sync();
   return Author;
 };

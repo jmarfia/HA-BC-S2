@@ -92,9 +92,7 @@ app.get("/contacto", postController.contacto); //ok
 app.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
 app.post("/registro", (req, res) => AccessCtrl.register(req, res));
 app.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
-app.post(
-  "/ingresar",
-  passport.authenticate("local", {
+app.post("/ingresar", passport.authenticate("local", {
     successRedirect: "/adminpanel",
     failureRedirect: "/ingresar"
   })

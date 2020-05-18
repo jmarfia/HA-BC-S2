@@ -30,15 +30,6 @@ class AccessController {
     res.render("access/index", { pageData });
   }
 
-  static login(req, res) {
-    /*
-    passport.authenticate('local', {
-        successRedirect: '/adminpanel',
-        failureRedirect: '/ingresar'
-    });
-    */
-  }
-
   static register(req, res) {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
@@ -49,7 +40,7 @@ class AccessController {
       password: hash,
     }).then((author) => {
       console.log(author);
-      res.redirect("/")
+      res.redirect("/");
     });
   }
 
