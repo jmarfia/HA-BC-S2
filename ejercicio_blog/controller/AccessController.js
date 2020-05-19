@@ -45,9 +45,7 @@ class AccessController {
   }
 
   static logout(req, res) {
-    req.session.destroy(function(err) {
-      console.log("sesion cerrada")
-    })
+    req.session.destroy(err => console.log("Sesión cerrada."));
     res.redirect("/");
   }
 }
