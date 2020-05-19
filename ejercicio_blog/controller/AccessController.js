@@ -33,7 +33,7 @@ class AccessController {
   static register(req, res) {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
-    Author.create({
+    Author.findOrCreate({
       firstName: req.body.firstname,
       lastName: req.body.lastname,
       email: req.body.email,
@@ -45,6 +45,9 @@ class AccessController {
   }
 
   static logout(req, res) {
+    req.session.destroy(function(err) {
+      console.log("sesion cerrada")
+    })
     res.redirect("/");
   }
 }
