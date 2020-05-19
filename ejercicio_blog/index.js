@@ -48,7 +48,7 @@ passport.use(
 
           author.validPassword(password, (err, isMatch) => {
             if (isMatch && !err) {
-                
+
               const payload = {
                 iat: Math.round(Date.now() / 1000),
                 exp: Math.round(Date.now() / 1000 + 30 * 24 * 60),
@@ -108,7 +108,7 @@ app.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
 app.post(
   "/ingresar",
   passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/adminpanel",
     failureRedirect: "/ingresar",
   })
 );
