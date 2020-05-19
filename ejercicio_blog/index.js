@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 //Session
 app.use(
   session({
-    secret: "AlgúnTextoSuperSecreto",
+    secret: "ExtremadamenteSecreto",
     resave: false,
     saveUninitialized: false,
   })
@@ -48,14 +48,6 @@ passport.use(
 
           author.validPassword(password, (err, isMatch) => {
             if (isMatch && !err) {
-
-              const payload = {
-                iat: Math.round(Date.now() / 1000),
-                exp: Math.round(Date.now() / 1000 + 30 * 24 * 60),
-                iss: "",
-                id: author.id,
-              };
-
               return done(null, author);
             } else {
               return done(null, false, { message: "Incorrect password." });
