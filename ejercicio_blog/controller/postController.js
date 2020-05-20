@@ -29,10 +29,13 @@ module.exports = {
     res.render("modificararticulo", { articulo: articles });
   },
 
-  //te lleva a /adminpanel y muestra todos los articulos
+  //te lleva a /adminpanel y muestra todos los articulo
   async adminPanel(req, res) {
+    let prueba = req.user.id;
+    console.log(prueba, "/////////////////////////////////")
     const articles = await Article.findAll({
       include: [Author],
+      where: [{ authorId: prueba }]
     });
     res.render("adminpanel", { articulos: articles });
   },
