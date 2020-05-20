@@ -1,5 +1,7 @@
 body {
   margin-top: 90px;
+  color: rgb(131, 148, 150);
+  background-color: rgb(0, 43, 54);
 }
 .titleArticulo {
   font-size: 35px;
@@ -40,4 +42,15 @@ footer {
   font-size: 20px;
   font-weight: 100;
   color: #ffffff;
+}
+.Form-EJ{
+  background-color: white;
+  color: black;
+}
+
+
+
+
+.login--container {
+  width: 25rem;
 }

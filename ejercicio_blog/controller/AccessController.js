@@ -1,72 +1,53 @@
 const db = require("../db");
 const { Author } = require("../modelos");
-
+const passport = require("passport");
+const bcrypt = require("bcryptjs");
 
 class AccessController {
+  constructor() {}
 
-    constructor() {}
+  static showLogin(req, res) {
+    const pageData = {
+      title: "Ingresar",
+      partialView: {
+        path: __dirname + "/../views/access/_login.ejs",
+        data: {},
+      },
+    };
 
+    res.render("access/index", { pageData });
+  }
 
-    static showLogin(req, res) {
+  static showRegister(req, res) {
+    const pageData = {
+      title: "Registro",
+      partialView: {
+        path: __dirname + "/../views/access/_register.ejs",
+        data: {},
+      },
+    };
 
-        const pageData = {
-            title: 'Ingresar',
-            partialView: {
-                path: 'access/_login',
-                data: {}
-            }
-        }
+    res.render("access/index", { pageData });
+  }
 
-        res.render('access/index', { pageData });
-    }
+  static register(req, res) {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+    Author.findOrCreate({
+      firstName: req.body.firstname,
+      lastName: req.body.lastname,
+      email: req.body.email,
+      password: hash,
+    }).then((author) => {
+      console.log(author);
+      res.redirect("/");
+    });
+  }
 
-
-    static showRegister(req, res) {
-
-        const pageData = {
-            title: 'Registro',
-            partialView: {
-                path: 'access/_register',
-                data: {}
-            }
-        }
-
-        res.render('access/index', { pageData });
-    }
-
-
-    static login(req, res) {
-
-        if(true)
-        {
-            res.redirect('/admin');
-        }
-        else
-        {
-            res.redirect('/admin/ingreso');
-        }
-        
-    }
-
-
-    static register(req, res) {
-
-        if(true)
-        {
-            res.redirect('/admin');
-        }
-        else
-        {
-            res.redirect('/admin/ingreso');
-        }
-    }
-
-
-    static logout(req, res) {
-
-        res.redirect('/');
-    }
+  static logout(req, res) {
+    req.session.destroy(err => console.log("Sesión cerrada."));
+    res.redirect("/");
+  }
 }
-
 
 module.exports = AccessController;

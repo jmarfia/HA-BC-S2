@@ -3,7 +3,7 @@
 <%- include("partials/header") %>
 
 <body>
-  <%- include("partials/navbar") %>
+  <%- include("partials/navbar", { login: true }) %>
   <div class="container mt-5">
     <% articulos.forEach(element => { %>
     <div class="row">
