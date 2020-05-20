@@ -6,6 +6,8 @@ const AccessCtrl = require("./controller/AccessController");
 const path = require("path");
 const Sequelize = require("sequelize");
 const { Author } = require("./modelos");
+const cors = require("cors")
+const bodyParser = require("body-parser")
 require('dotenv').config()
 
 
@@ -73,18 +75,56 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/** passport setup */
 passport.use(new FacebookStrategy({
-  clientID: process.env.FACEBOOK_APP_ID,
-  clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: "/"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    Author.findOrCreate(..., function(err, user) {
-      if (err) { return done(err); }
-      done(null, user);
-    });
-  }
+  clientID: "238129214160417",
+  clientSecret: "bfa9f883f79b05b502b343694d469d93",
+  callbackURL: "http://localhost:3000/auth/facebook/callback",
+  profileFields: ['id', 'displayName','email'],
+  enableProof: true
+},
+function(accessToken, refreshToken, user, cb) {
+  return cb(null,user);
+}
 ));
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+  cb(null, obj);
+});
+
+/** set app */
+
+app.use(cors());
+app.use(bodyParser.json({
+  limit: '50mb'
+}));
+
+
+const isAuthenticated = async (req, res, next) => {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/');
+}
+
+app.get('/auth/facebook', passport.authenticate('facebook', {scope:"email"}));
+
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/ingresar' }));
+
+app.use('/auth/logout', (req, res) => {
+  req.logout();
+  res.redirect('/');
+});
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
