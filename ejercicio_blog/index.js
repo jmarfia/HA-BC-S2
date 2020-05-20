@@ -115,7 +115,7 @@ const isAuthenticated = async (req, res, next) => {
 
 app.get('/auth/facebook', passport.authenticate('facebook', {scope:"email"}));
 
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/ingresar' }));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/adminpanel', failureRedirect: '/ingresar' }));
 
 app.use('/auth/logout', (req, res) => {
   req.logout();
@@ -160,9 +160,9 @@ app.post(
   })
 );
 app.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
-app.get('/auth/facebook', passport.authenticate('facebook'));
-app.get('/',
-  passport.authenticate('facebook', { successRedirect: '/',
-                                      failureRedirect: '/ingresar' }));
+// app.get('/auth/facebook', passport.authenticate('facebook'));
+// app.get('/',
+//   passport.authenticate('facebook', { successRedirect: '/',
+//                                       failureRedirect: '/ingresar' }));
 
 app.listen(3000);
