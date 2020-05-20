@@ -6,10 +6,12 @@ const AccessCtrl = require("./controller/AccessController");
 const path = require("path");
 const Sequelize = require("sequelize");
 const { Author } = require("./modelos");
+require('dotenv').config()
+
 
 //Requires Login/Register
 const session = require("express-session");
-const passport = require("passport");
+const passport = require("passport"), FacebookStrategy = require('passport-facebook').Strategy;
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 
@@ -44,7 +46,6 @@ passport.use(
           if (author === null) {
             return done(null, false, { message: "Incorrect username." });
           }
-
           author.validPassword(password, (err, isMatch) => {
             if (isMatch && !err) {
               return done(null, author);
@@ -71,6 +72,21 @@ passport.deserializeUser(function (id, done) {
       done(error, author);
     });
 });
+
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: "/"
+},
+function(accessToken, refreshToken, profile, done) {
+  User.findOrCreate(..., function(err, user) {
+    if (err) { return done(err); }
+    done(null, user);
+  });
+}
+));
+
+
 
 // Middleware de acceso.
 const access = () => {
@@ -104,5 +120,9 @@ app.post(
   })
 );
 app.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/',
+  passport.authenticate('facebook', { successRedirect: '/',
+                                      failureRedirect: '/ingresar' }));
 
 app.listen(3000);

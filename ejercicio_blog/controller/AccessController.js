@@ -1,6 +1,6 @@
 const db = require("../db");
 const { Author } = require("../modelos");
-const passport = require("passport");
+const passport = require("passport"), FacebookStrategy = require('passport-facebook').Strategy;;
 const bcrypt = require("bcryptjs");
 
 class AccessController {

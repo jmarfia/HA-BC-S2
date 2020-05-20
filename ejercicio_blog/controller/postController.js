@@ -79,3 +79,22 @@ module.exports = {
     res.send(authorModel.encontrarAutor(1));
   },
 };
+
+
+//revisa si esta logueado en fb
+// FB.getLoginStatus(function(response) {
+//   statusChangeCallback(response);
+// });
+
+// devuelve esto:
+
+
+// {
+//   status: 'connected',
+//   authResponse: {
+//       accessToken: '...',
+//       expiresIn:'...',
+//       signedRequest:'...',
+//       userID:'...'
+//   }
+// }

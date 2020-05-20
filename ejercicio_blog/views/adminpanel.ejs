@@ -3,6 +3,31 @@
 <%- include("partials/header") %>
 
 <body>
+  
+  <!-- EAADYk8c4fiEBAAbOJG4VqIuwgcZBUiAkmGUf8ifO1Pjdb7VKqheRX8hDSuQcEGrEJ9xZAk4BGXBGD4EiOZBOX85Idli9M6ZB1LevI4HjziJz5Bp39QZAwjBO5Y8fY2o6shMBEIvKwfjeMBnixg68RNo7cARSwu7GVhxGMfTo1bQZDZD
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '238129214160417',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'bfa9f883f79b05b502b343694d469d93'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script> -->
+
+
   <%- include("partials/navbar", { login: true }) %>
   <div class="container mt-5">
     <% articulos.forEach(element => { %>
