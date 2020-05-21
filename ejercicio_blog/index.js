@@ -6,14 +6,14 @@ const AccessCtrl = require("./controller/AccessController");
 const path = require("path");
 const Sequelize = require("sequelize");
 const { Author } = require("./modelos");
-const cors = require("cors")
-const bodyParser = require("body-parser")
-require('dotenv').config()
-
+const cors = require("cors");
+const bodyParser = require("body-parser");
+require("dotenv").config();
 
 //Requires Login/Register
 const session = require("express-session");
-const passport = require("passport"), FacebookStrategy = require('passport-facebook').Strategy;
+const passport = require("passport"),
+  FacebookStrategy = require("passport-facebook").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 
@@ -75,58 +75,65 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-
 /** passport setup */
-passport.use(new FacebookStrategy({
-  clientID: "238129214160417",
-  clientSecret: "bfa9f883f79b05b502b343694d469d93",
-  callbackURL: "http://localhost:3000/auth/facebook/callback",
-  profileFields: ['id', 'displayName','email'],
-  enableProof: true
-},
-function(accessToken, refreshToken, user, cb) {
-  return cb(null,user);
-}
-));
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: "625050458086852",
+      clientSecret: "28713e9a18624eb5ff87efd83d37dbe3",
+      callbackURL: "http://localhost:3000/auth/facebook/callback",
+      profileFields: ["id", "displayName", "email"],
+      enableProof: true,
+    },
+    function (accessToken, refreshToken, profile, done) {
+      console.log(profile._json.id, profile.id, "/////////////////");
+      Author.findOne({ where: { facebookId: profile._json.id } }).then((user) => {
+        if (user) {
+          console.log("usuario encontrado");
 
-passport.serializeUser(function(user, cb) {
+          done(null, user);
+        }
+      });
+    }
+  )
+);
+
+passport.serializeUser(function (user, cb) {
   cb(null, user);
 });
 
-passport.deserializeUser(function(obj, cb) {
+passport.deserializeUser(function (obj, cb) {
   cb(null, obj);
 });
 
 /** set app */
 
 app.use(cors());
-app.use(bodyParser.json({
-  limit: '50mb'
-}));
-
+app.use(
+  bodyParser.json({
+    limit: "50mb",
+  })
+);
 
 const isAuthenticated = async (req, res, next) => {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/');
-}
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/");
+};
 
-app.get('/auth/facebook', passport.authenticate('facebook', {scope:"email"}));
+app.get("/auth/facebook", passport.authenticate("facebook", { scope: "email" }));
 
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: '/adminpanel', failureRedirect: '/ingresar' }));
+app.get("/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "/adminpanel", failureRedirect: "/ingresar" }));
 
-app.use('/auth/logout', (req, res) => {
+app.use("/auth/logout", (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.redirect("/");
 });
 
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////
-
-
 
 // Middleware de acceso.
 const access = () => {
