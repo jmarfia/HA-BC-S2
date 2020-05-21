@@ -84,21 +84,24 @@ passport.use(
       clientID: "625050458086852",
       clientSecret: "28713e9a18624eb5ff87efd83d37dbe3",
       callbackURL: "http://localhost:3000/auth/facebook/callback",
-      profileFields: ["id", "displayName", "email"],
+      profileFields: ["id", "displayName", "first_name", "last_name", "email"],
       enableProof: true,
     },
     function (accessToken, refreshToken, profile, done) {
-      console.log(profile._json.id, profile.id, "/////////////////");
+      console.log(profile._json.id, profile.id, profile._json.first_name, "/////////////////");
       Author.findOne({ where: { facebookId: profile._json.id } }).then((user) => {
+        console.log(user, "#####################################################################################################");
         if (user) {
           console.log("usuario encontrado");
 
           done(null, user);
         } else {
+          const salt = bcrypt.genSaltSync(10);
+          const hash = bcrypt.hashSync(toString(Math.floor(Math.random() * 576)), salt);
           let newUser = new Author({
-            firstName: "enzo",
-            lastName: "guerra",
-            password: "puto",
+            firstName: profile._json.first_name,
+            lastName: profile._json.last_name,
+            password: hash,
             email: profile._json.email,
             facebookId: profile._json.id,
           });
@@ -139,7 +142,7 @@ const isAuthenticated = async (req, res, next) => {
   res.redirect("/");
 };
 
-app.get("/auth/facebook", passport.authenticate("facebook", { scope: "email" }));
+app.get("/auth/facebook", passport.authenticate("facebook", { scope: "public_profile, email" }));
 
 app.get("/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "/adminpanel", failureRedirect: "/ingresar" }));
 

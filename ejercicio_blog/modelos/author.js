@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 
-
 module.exports = function (sequelize, Sequelize) {
   //modelo de una tabla
   const Model = Sequelize.Model;
@@ -29,6 +28,11 @@ module.exports = function (sequelize, Sequelize) {
         // allowNull defaults to true
       },
       password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        // allowNull defaults to true
+      },
+      facebookId: {
         type: Sequelize.STRING,
         allowNull: false,
         // allowNull defaults to true
