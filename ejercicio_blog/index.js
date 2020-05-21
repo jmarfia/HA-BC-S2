@@ -94,6 +94,21 @@ passport.use(
           console.log("usuario encontrado");
 
           done(null, user);
+        } else {
+          let newUser = new Author({
+            firstName: "enzo",
+            lastName: "guerra",
+            password: "puto",
+            email: profile._json.email,
+            facebookId: profile._json.id,
+          });
+          newUser.save().then((user) => {
+            console.log(user);
+            if (user) {
+              console.log("usuario creado");
+              done(null, newUser);
+            }
+          });
         }
       });
     }
