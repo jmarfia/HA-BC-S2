@@ -164,9 +164,10 @@ const access = () => {
   };
 };
 
-const role2 = () => {
+const roleCheck = (numero) => {
   return (req, res, next) => {
-    if (req.user.role === "2") {
+    console.log(req.user, "ESTE ESE EL USER aaaaaaaaaaaaa!!!!!!!!")
+    if (req.user.role === numero) {
       console.log(req.user.role, "ESTE ESE EL ROLE aaaaaaaaaaaaa!!!!!!!!")
       next();
     } else {
@@ -177,7 +178,7 @@ const role2 = () => {
 };
 
 app.get("/", postController.getAllArticles); //ok
-app.get("/articulo",role2(), postController.getArticleById); //ok
+app.get("/articulo", roleCheck("2"), postController.getArticleById); //ok
 app.get("/modificararticulo", access(), postController.editArticleById); //ok
 app.get("/setarticulo", access(), postController.updateArticleById); //ok
 app.get("/borrararticulo", access(), postController.deleteArticleById); // ok
