@@ -1,14 +1,5 @@
 const db = require("../db");
 const { User, Article } = require("../modelos");
-const express = require("express");
-const bodyParser = require("body-parser");
-const app = express();
-
-app.use(
-  bodyParser.json({
-    limit: "50mb",
-  })
-);
 
 module.exports = {
 
@@ -22,7 +13,6 @@ module.exports = {
 
   //trae un articulo, debes llamarla para ir a la vista de un articulo solo /articulo ----//show
   async getArticleById(req, res) {
-    console.log(req.user,"////////////////////////////");
     const articuloID = req.query.articuloID;
     const articles = await Article.findByPk(articuloID, {
       include: [User],
@@ -42,6 +32,7 @@ module.exports = {
   //te lleva a /adminpanel y muestra todos los articulo
   async adminPanel(req, res) {
     let prueba = req.user.id;
+    console.log(prueba, "/////////////////////////////////")
     const articles = await Article.findAll({
       include: [User],
       where: [{ userId: prueba }]

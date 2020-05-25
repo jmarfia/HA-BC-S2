@@ -37,11 +37,6 @@ module.exports = function (sequelize, Sequelize) {
         allowNull: false,
         // allowNull defaults to true
       },
-      role: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        // allowNull defaults to true
-      },
     },
     {
       sequelize,

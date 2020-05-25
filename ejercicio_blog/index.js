@@ -5,7 +5,7 @@ const postController = require("./controller/postController");
 const AccessCtrl = require("./controller/AccessController");
 const path = require("path");
 const Sequelize = require("sequelize");
-const { Author } = require("./modelos");
+const { User } = require("./modelos");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
@@ -43,14 +43,14 @@ passport.use(
       passwordField: "password",
     },
     function (username, password, done) {
-      Author.findOne({ where: { email: username } })
-        .then((author) => {
-          if (author === null) {
+      User.findOne({ where: { email: username } })
+        .then((user) => {
+          if (user === null) {
             return done(null, false, { message: "Incorrect username." });
           }
-          author.validPassword(password, (err, isMatch) => {
+          user.validPassword(password, (err, isMatch) => {
             if (isMatch && !err) {
-              return done(null, author);
+              return done(null, user);
             } else {
               return done(null, false, { message: "Incorrect password." });
             }
@@ -61,17 +61,17 @@ passport.use(
   )
 );
 
-passport.serializeUser(function (author, done) {
-  done(null, author.id);
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
 });
 
 passport.deserializeUser(function (id, done) {
-  Author.findByPk(id)
-    .then((author) => {
-      done(null, author);
+  User.findByPk(id)
+    .then((user) => {
+      done(null, user);
     })
     .catch((error) => {
-      done(error, author);
+      done(error, user);
     });
 });
 
@@ -89,7 +89,7 @@ passport.use(
     },
     function (accessToken, refreshToken, profile, done) {
       console.log(profile._json.id, profile.id, profile._json.first_name, "/////////////////");
-      Author.findOne({ where: { facebookId: profile._json.id } }).then((user) => {
+      User.findOne({ where: { facebookId: profile._json.id } }).then((user) => {
         console.log(user, "#####################################################################################################");
         if (user) {
           console.log("usuario encontrado");
@@ -98,7 +98,7 @@ passport.use(
         } else {
           const salt = bcrypt.genSaltSync(10);
           const hash = bcrypt.hashSync(toString(Math.floor(Math.random() * 576)), salt);
-          let newUser = new Author({
+          let newUser = new User({
             firstName: profile._json.first_name,
             lastName: profile._json.last_name,
             password: hash,
@@ -164,37 +164,12 @@ const access = () => {
   };
 };
 
-// Middleware de rol1.
-
-const roleReadOnly = () => {
-  return (req, res, next) => {
-    if (req.user.role === "2") {
-      next();
-    } else {
-        console.log(req.user.role, "NO SOS ADMIN ///////////////////////////////////////")
-      res.redirect("/");
-    }
-  };
-};
-
-const roleAdmin = () => {
-  return (req, res, next) => {
-    if (req.user.role === "4") {
-      next();
-    } else {
-        console.log(req.user.role, "NO SOS ADMIN ///////////////////////////////////////")
-      res.redirect("/");
-    }
-  };
-};
-
-
 app.get("/", postController.getAllArticles); //ok
-app.get("/articulo", roleReadOnly(), postController.getArticleById); //ok
+app.get("/articulo", postController.getArticleById); //ok
 app.get("/modificararticulo", access(), postController.editArticleById); //ok
 app.get("/setarticulo", access(), postController.updateArticleById); //ok
 app.get("/borrararticulo", access(), postController.deleteArticleById); // ok
-app.get("/adminpanel", roleAdmin(), access(), postController.adminPanel); //ok
+app.get("/adminpanel", access(), postController.adminPanel); //ok
 app.get("/contacto", postController.contacto); //ok
 //app.get("/pruebasqlz", postController.sqlz);
 
