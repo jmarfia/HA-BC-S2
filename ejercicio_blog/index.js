@@ -164,8 +164,20 @@ const access = () => {
   };
 };
 
+const role2 = () => {
+  return (req, res, next) => {
+    if (req.user.role === "2") {
+      console.log(req.user.role, "ESTE ESE EL ROLE aaaaaaaaaaaaa!!!!!!!!")
+      next();
+    } else {
+        console.log("NO SOS ADMIN ///////////////////////////////////////")
+      res.redirect("/ingresar");
+    }
+  };
+};
+
 app.get("/", postController.getAllArticles); //ok
-app.get("/articulo", postController.getArticleById); //ok
+app.get("/articulo",role2(), postController.getArticleById); //ok
 app.get("/modificararticulo", access(), postController.editArticleById); //ok
 app.get("/setarticulo", access(), postController.updateArticleById); //ok
 app.get("/borrararticulo", access(), postController.deleteArticleById); // ok
