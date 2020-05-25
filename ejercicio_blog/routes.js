@@ -8,6 +8,12 @@ const postController = require("./controller/postController");
 const AccessCtrl = require("./controller/AccessController");
 const { User } = require("./modelos");
 const session = require("express-session");
+const bodyParser = require("body-parser");
+const bcrypt = require("bcryptjs");
+
+
+const cors = require("cors");
+
 
 //Passport
 router.use(
@@ -101,6 +107,7 @@ passport.use(
             password: hash,
             email: profile._json.email,
             facebookId: profile._json.id,
+            role: "1"
           });
           newUser.save().then((user) => {
             console.log(user);
@@ -145,8 +152,33 @@ const roleCheck = (numero) => {
   };
 };
 
+/** set app */
+
+router.use(cors());
+router.use(
+  bodyParser.json({
+    limit: "50mb",
+  })
+);
+
+const isAuthenticated = async (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/");
+};
+
+router.get("/auth/facebook", passport.authenticate("facebook", { scope: "public_profile, email" }));
+
+router.get("/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "/adminpanel", failureRedirect: "/ingresar" }));
+
+router.use("/auth/logout", (req, res) => {
+  req.logout();
+  res.redirect("/");
+});
+
 router.get("/", postController.getAllArticles); //ok
-router.get("/articulo", roleCheck("2"), postController.getArticleById); //ok
+router.get("/articulo", roleCheck("1"), postController.getArticleById); //ok
 router.get("/modificararticulo", access(), postController.editArticleById); //ok
 router.get("/setarticulo", access(), postController.updateArticleById); //ok
 router.get("/borrararticulo", access(), postController.deleteArticleById); // ok
