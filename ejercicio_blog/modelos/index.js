@@ -17,12 +17,12 @@ sequelize
   });
 
 const Article = require("./article")(sequelize, Sequelize);
-const User = require("./user")(sequelize, Sequelize);
+const Author = require("./author")(sequelize, Sequelize);
 
-Article.belongsTo(User);
-User.hasMany(Article);
+Article.belongsTo(Author);
+Author.hasMany(Article);
 
 module.exports = {
   Article,
-  User
+  Author
 };

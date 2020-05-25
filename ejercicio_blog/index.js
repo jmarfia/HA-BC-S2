@@ -164,37 +164,12 @@ const access = () => {
   };
 };
 
-// Middleware de rol1.
-
-const roleReadOnly = () => {
-  return (req, res, next) => {
-    if (req.user.role === "2") {
-      next();
-    } else {
-        console.log(req.user.role, "NO SOS ADMIN ///////////////////////////////////////")
-      res.redirect("/");
-    }
-  };
-};
-
-const roleAdmin = () => {
-  return (req, res, next) => {
-    if (req.user.role === "4") {
-      next();
-    } else {
-        console.log(req.user.role, "NO SOS ADMIN ///////////////////////////////////////")
-      res.redirect("/");
-    }
-  };
-};
-
-
 app.get("/", postController.getAllArticles); //ok
-app.get("/articulo", roleReadOnly(), postController.getArticleById); //ok
+app.get("/articulo", postController.getArticleById); //ok
 app.get("/modificararticulo", access(), postController.editArticleById); //ok
 app.get("/setarticulo", access(), postController.updateArticleById); //ok
 app.get("/borrararticulo", access(), postController.deleteArticleById); // ok
-app.get("/adminpanel", roleAdmin(), access(), postController.adminPanel); //ok
+app.get("/adminpanel", access(), postController.adminPanel); //ok
 app.get("/contacto", postController.contacto); //ok
 //app.get("/pruebasqlz", postController.sqlz);
 

@@ -29,7 +29,7 @@ CREATE TABLE `articles` (
   `titulo` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `contenido` varchar(3000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `avatar` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `userId` bigint NOT NULL,
+  `authorId` bigint NOT NULL,
   `createdAt` datetime DEFAULT NULL,
   `updatedAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -47,13 +47,13 @@ INSERT INTO `articles` VALUES (1,'Como ganar la loteria','Compre un boleto. Si t
 UNLOCK TABLES;
 
 --
--- Table structure for table `users`
+-- Table structure for table `authors`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `authors`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
+CREATE TABLE `authors` (
   `id` int NOT NULL AUTO_INCREMENT,
   `firstName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -66,13 +66,13 @@ CREATE TABLE `users` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `authors`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Juan','Marfia','juanmarfia@mail.com','2020-05-13 13:20:38','2020-05-13 13:20:38',''),(2,'Bill','Gates','billg@gmail.com','2020-05-13 00:00:00','2020-05-13 00:00:00',''),(3,'Steve','Jobs','stevej@hotmail.com','2020-05-13 13:20:38','2020-05-13 13:20:38',''),(4,'Elon','Musk','elonm@adinet.com.uy','2020-05-13 13:20:38','2020-05-13 13:20:38',''),(5,'El','Reja','reejabuceopeniarol1982@yahoo.com','2020-05-13 13:20:38','2020-05-13 13:20:38',''),(21,'hola','hola','hola@hola.com','2020-05-20 13:52:12','2020-05-20 13:52:12','$2a$10$xj8PQZOcObpdZ6/JqTze8.b4bjCn.ApfJyTTo4sh1KY81OR/qB9f2');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `authors` WRITE;
+/*!40000 ALTER TABLE `authors` DISABLE KEYS */;
+INSERT INTO `authors` VALUES (1,'Juan','Marfia','juanmarfia@mail.com','2020-05-13 13:20:38','2020-05-13 13:20:38',''),(2,'Bill','Gates','billg@gmail.com','2020-05-13 00:00:00','2020-05-13 00:00:00',''),(3,'Steve','Jobs','stevej@hotmail.com','2020-05-13 13:20:38','2020-05-13 13:20:38',''),(4,'Elon','Musk','elonm@adinet.com.uy','2020-05-13 13:20:38','2020-05-13 13:20:38',''),(5,'El','Reja','reejabuceopeniarol1982@yahoo.com','2020-05-13 13:20:38','2020-05-13 13:20:38',''),(21,'hola','hola','hola@hola.com','2020-05-20 13:52:12','2020-05-20 13:52:12','$2a$10$xj8PQZOcObpdZ6/JqTze8.b4bjCn.ApfJyTTo4sh1KY81OR/qB9f2');
+/*!40000 ALTER TABLE `authors` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

@@ -19,7 +19,7 @@ module.exports = function (sequelize, Sequelize) {
         allowNull: false,
         // allowNull defaults to true
       },
-      userId: {
+      authorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         // allowNull defaults to true
