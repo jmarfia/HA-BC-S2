@@ -1,21 +1,31 @@
 const db = require("../db");
-const { Author, Article } = require("../modelos");
+const { User, Article } = require("../modelos");
+const express = require("express");
+const bodyParser = require("body-parser");
+const app = express();
+
+app.use(
+  bodyParser.json({
+    limit: "50mb",
+  })
+);
 
 module.exports = {
 
   //trae todos los articulos, debe llamarse cuando queres ir a / ----//index
   async getAllArticles(req, res) {
     const articles = await Article.findAll({
-      include: [Author],
+      include: [User],
     });
     res.render("home", { articulos: articles });
   },
 
   //trae un articulo, debes llamarla para ir a la vista de un articulo solo /articulo ----//show
   async getArticleById(req, res) {
+    console.log(req.user,"////////////////////////////");
     const articuloID = req.query.articuloID;
     const articles = await Article.findByPk(articuloID, {
-      include: [Author],
+      include: [User],
     });
     res.render("articulo", { articulo: articles });
   },
@@ -24,7 +34,7 @@ module.exports = {
   async editArticleById(req, res) {
     const articuloID = req.query.articuloID;
     const articles = await Article.findByPk(articuloID, {
-      include: [Author],
+      include: [User],
     });
     res.render("modificararticulo", { articulo: articles });
   },
@@ -32,10 +42,9 @@ module.exports = {
   //te lleva a /adminpanel y muestra todos los articulo
   async adminPanel(req, res) {
     let prueba = req.user.id;
-    console.log(prueba, "/////////////////////////////////")
     const articles = await Article.findAll({
-      include: [Author],
-      where: [{ authorId: prueba }]
+      include: [User],
+      where: [{ userId: prueba }]
     });
     res.render("adminpanel", { articulos: articles });
   },
@@ -53,7 +62,7 @@ module.exports = {
       });
     });
     const articles = await Article.findByPk(articuloID, {
-      include: [Author],
+      include: [User],
     });
 
     res.render("articulo", { articulo: articles });
@@ -76,7 +85,7 @@ module.exports = {
   },
 
   sqlz(req, res) {
-    res.send(authorModel.encontrarAutor(1));
+    res.send(userModel.encontrarAutor(1));
   },
 };
 

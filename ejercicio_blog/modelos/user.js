@@ -3,14 +3,14 @@ const bcrypt = require("bcryptjs");
 module.exports = function (sequelize, Sequelize) {
   //modelo de una tabla
   const Model = Sequelize.Model;
-  class Author extends Model {
+  class User extends Model {
     validPassword(password, callback) {
       bcrypt.compare(password, this.password, (err, isMatch) => {
         err ? callback(err, false) : callback(null, isMatch);
       });
     }
   }
-  Author.init(
+  User.init(
     {
       // attributes
       firstName: {
@@ -37,14 +37,19 @@ module.exports = function (sequelize, Sequelize) {
         allowNull: false,
         // allowNull defaults to true
       },
+      role: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        // allowNull defaults to true
+      },
     },
     {
       sequelize,
-      modelName: "author",
+      modelName: "user",
       // options
     }
   );
 
-  Author.sync();
-  return Author;
+  User.sync();
+  return User;
 };
