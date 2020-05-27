@@ -1,5 +1,4 @@
 const express = require("express"); //
-
 const router = express.Router();
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -10,9 +9,8 @@ const { User } = require("./modelos");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
-
-
 const cors = require("cors");
+var flash = require('req-flash');
 
 
 //Passport
@@ -23,6 +21,14 @@ router.use(
     saveUninitialized: false,
   })
 );
+router.use(flash());
+router.use(function (req, res, next) {
+    res.locals.currentUser = req.user;
+    res.locals.infos = req.flash("info");
+    res.locals.errors = req.flash("error");
+    next();
+});
+
 var passport = require("passport"),
   FacebookStrategy = require("passport-facebook").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
@@ -129,26 +135,31 @@ passport.serializeUser(function (user, cb) {
 passport.deserializeUser(function (obj, cb) {
   cb(null, obj);
 });
+
 const access = () => {
   return (req, res, next) => {
     if (req.isAuthenticated()) {
       next();
     } else {
-      res.redirect("/ingresar");
+      res.render("/access/_login", {mensaje: "chupito el pame" });
     }
   };
 };
 
 const roleCheck = (numero) => {
   return (req, res, next) => {
-    console.log(req.user, "ESTE ESE EL USER aaaaaaaaaaaaa!!!!!!!!");
-    if (req.user.role === numero) {
-      console.log(req.user.role, "ESTE ESE EL ROLE aaaaaaaaaaaaa!!!!!!!!");
-      next();
-    } else {
-      console.log("NO SOS ADMIN ///////////////////////////////////////");
-      res.redirect("/ingresar");
-    }
+    console.log(req.user, "POR FAVOR ENTRA ACAA!! ESTE ESE EL USER aaaaaaaaaaaaa!!!!!!!!");
+    if (req.user != undefined){
+        if (req.user.role === numero) {
+        console.log(req.user.role, "ESTE ESE EL ROLE aaaaaaaaaaaaa!!!!!!!!");
+        next();
+        } else {
+        console.log("NO SOS ADMIN ///////////////////////////////////////");
+        //decirle que no tiene el rol adecuado
+        }
+    }else{
+            res.redirect("/ingresar");
+        }
   };
 };
 
@@ -179,10 +190,10 @@ router.use("/auth/logout", (req, res) => {
 
 router.get("/", postController.getAllArticles); //ok
 router.get("/articulo", roleCheck("1"), postController.getArticleById); //ok
-router.get("/modificararticulo", access(), postController.editArticleById); //ok
-router.get("/setarticulo", access(), postController.updateArticleById); //ok
-router.get("/borrararticulo", access(), postController.deleteArticleById); // ok
-router.get("/adminpanel", access(), postController.adminPanel); //ok
+router.get("/modificararticulo", roleCheck("1"), postController.editArticleById); //ok
+router.get("/setarticulo", roleCheck("1"), postController.updateArticleById); //ok
+router.get("/borrararticulo", roleCheck("1"), postController.deleteArticleById); // ok
+router.get("/adminpanel", roleCheck("1"), postController.adminPanel); //ok
 router.get("/contacto", postController.contacto); //ok
 //app.get("/pruebasqlz", postController.sqlz);
 

@@ -1,7 +1,10 @@
 const db = require("../db");
 const { User } = require("../modelos");
-const passport = require("passport"), FacebookStrategy = require('passport-facebook').Strategy;;
+const passport = require("passport"),
+  FacebookStrategy = require("passport-facebook").Strategy;
 const bcrypt = require("bcryptjs");
+
+
 
 class AccessController {
   constructor() {}
@@ -15,7 +18,7 @@ class AccessController {
       },
     };
 
-    res.render("access/index", { pageData });
+    res.render("access/index", { pageData, mensaje: "" });//cambiar mensajes que mandas
   }
 
   static showRegister(req, res) {
@@ -33,11 +36,13 @@ class AccessController {
   static register(req, res) {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(req.body.password, salt);
+    const hash2 = toString(bcrypt.hashSync(toString(Math.floor(Math.random() * 576)), salt));
     User.create({
       firstName: req.body.firstname,
       lastName: req.body.lastname,
       email: req.body.email,
       password: hash,
+      facebookId: hash2,
     }).then((user) => {
       console.log(user);
       res.redirect("/");
@@ -45,7 +50,7 @@ class AccessController {
   }
 
   static logout(req, res) {
-    req.session.destroy(err => console.log("Sesión cerrada."));
+    req.session.destroy((err) => console.log("Sesión cerrada."));
     res.redirect("/");
   }
 }
