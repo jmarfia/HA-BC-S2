@@ -1,5 +1,6 @@
 module.exports = function (sequelize, Sequelize) {
   //modelo de una tabla
+  const Op = Sequelize.Op;
   const Model = Sequelize.Model;
   class Article extends Model {}
   Article.init(
@@ -32,9 +33,10 @@ module.exports = function (sequelize, Sequelize) {
     }
   );
 
+
   Article.sync();
 
-  const Op = Sequelize.Op;
+
 
   return Article;
 };

@@ -4,6 +4,7 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 const db = require("./db");
 const postController = require("./controller/postController");
+const apiController = require("./controller/apiController");
 const AccessCtrl = require("./controller/AccessController");
 const { User } = require("./modelos");
 const session = require("express-session");
@@ -195,7 +196,15 @@ router.get("/setarticulo", roleCheck("1"), postController.updateArticleById); //
 router.get("/borrararticulo", roleCheck("1"), postController.deleteArticleById); // ok
 router.get("/adminpanel", roleCheck("1"), postController.adminPanel); //ok
 router.get("/contacto", postController.contacto); //ok
-//app.get("/pruebasqlz", postController.sqlz);
+
+//rutas api
+router.get("/api/articulos", apiController.getAllArticles); //ok con query string
+router.get("/api/articulosporautor/:author", apiController.getArticleByAuthor); //ok con params
+router.get("/api/articulosportitulo", apiController.getArticleByTitle); //ok con query string
+router.get("/api/borrararticulo", apiController.deleteArticleById); // ok 
+router.post("/api/updateArticleById", apiController.updateArticleById); // ok updateArticleById
+router.post("/api/newArticle", apiController.newArticle); // ok 
+
 
 //Login/Register EndPoints
 router.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
