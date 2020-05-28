@@ -28,11 +28,12 @@
 </script> -->
 
 
-  <%- include("partials/navbar", { login: true }) %>
+  <%- include("partials/navbar") %>
   <div class="container mt-5">
     <% articulos.forEach(element => { %>
     <div class="row">
-      <div class="col-1"></div>
+      <div class="col-1">
+    </div>
       <div class="col-10">
         <div class="row border border-primary p-2 mb-3 rounded">
           <div class="col-1 d-flex justify-content-center align-items-center"><img

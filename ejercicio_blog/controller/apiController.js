@@ -3,6 +3,9 @@ const { User, Article } = require("../modelos");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
+const jwt = require("jsonwebtoken");
+
+
 module.exports = {
   //trae todos los articulos, debe llamarse cuando queres ir a / ----//index
   async getAllArticles(req, res) {
@@ -12,9 +15,18 @@ module.exports = {
     res.json(articles);
   },
 
+
+  //getUserToken
+
+  async getUserToken(req, res) {
+    const credenciales = req.user.id + req.user.email;
+    const token = jwt.sign({ sub: credenciales }, process.env.JWT_SECRET);
+    // res.json(articles);
+    res.render("showToken",{generatedToken: token, user: req.user.firstName, email: req.user.email });
+  },
+
   async getArticleByAuthor(req, res) {
     const author = req.params.author;
-    console.log("****************", author);
     const articles = await Article.findAll({
       include: [
         {
@@ -28,7 +40,6 @@ module.exports = {
 
   async getArticleByTitle(req, res) {
     const title = req.query.title;
-    console.log("****************", title);
     const articles = await Article.findAll({
       include: [
         {
@@ -56,7 +67,6 @@ module.exports = {
     const titulo = req.body.titulo;
     const articulomodificado = req.body.articulomodificado;
     const avatar = req.body.avatar;
-    console.log(articuloID, articulomodificado);
     const modificaciones = {};
     
     if(titulo != undefined){
@@ -68,8 +78,6 @@ module.exports = {
     if(avatar != undefined){
         modificaciones.avatar = avatar
     }
-    console.log(modificaciones)
-
     await Article.findByPk(articuloID).then((articleDB) => {
       articleDB.update(modificaciones);
     });
@@ -100,7 +108,6 @@ module.exports = {
     if (avatar != undefined) {
         article.avatar = avatar
     }
-    console.log("aaaaaaaaaaaaaaaaaaaaa",article)
     await Article.create(article);
 
     res.end("done");

@@ -1,7 +1,5 @@
 const express = require("express"); //
 const router = express.Router();
-router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
 const db = require("./db");
 const postController = require("./controller/postController");
 const apiController = require("./controller/apiController");
@@ -13,8 +11,6 @@ const bcrypt = require("bcryptjs");
 const cors = require("cors");
 var flash = require('req-flash');
 
-
-//Passport
 router.use(
   session({
     secret: "AlgúnTextoSuperSecreto",
@@ -23,18 +19,23 @@ router.use(
   })
 );
 router.use(flash());
-router.use(function (req, res, next) {
-    res.locals.currentUser = req.user;
-    res.locals.infos = req.flash("info");
-    res.locals.errors = req.flash("error");
-    next();
-});
+;
+router.use(express.json());
+router.use(express.urlencoded({ extended: true }));
+router.use(cors());
+router.use(
+  bodyParser.json({
+    limit: "50mb",
+  })
+);
 
 var passport = require("passport"),
   FacebookStrategy = require("passport-facebook").Strategy;
+
 const LocalStrategy = require("passport-local").Strategy;
 router.use(passport.initialize());
 router.use(passport.session());
+
 passport.use(
   new LocalStrategy(
     {
@@ -74,8 +75,6 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-
 /** passport setup */
 passport.use(
   new FacebookStrategy(
@@ -87,17 +86,7 @@ passport.use(
       enableProof: true,
     },
     function (accessToken, refreshToken, profile, done) {
-      console.log(
-        profile._json.id,
-        profile.id,
-        profile._json.first_name,
-        "/////////////////"
-      );
       User.findOne({ where: { facebookId: profile._json.id } }).then((user) => {
-        console.log(
-          user,
-          "#####################################################################################################"
-        );
         if (user) {
           console.log("usuario encontrado");
 
@@ -142,20 +131,20 @@ const access = () => {
     if (req.isAuthenticated()) {
       next();
     } else {
-      res.render("/access/_login", {mensaje: "chupito el pame" });
+      res.render("/access/_login", {mensaje: "asdf" });
     }
   };
 };
 
 const roleCheck = (numero) => {
   return (req, res, next) => {
-    console.log(req.user, "POR FAVOR ENTRA ACAA!! ESTE ESE EL USER aaaaaaaaaaaaa!!!!!!!!");
+   //console.log(req.user, "ESTE ESE EL USER");
     if (req.user != undefined){
-        if (req.user.role === numero) {
-        console.log(req.user.role, "ESTE ESE EL ROLE aaaaaaaaaaaaa!!!!!!!!");
+        if (req.user.role > numero) {
+        //console.log(req.user.role, "ESTE ESE EL ROLE");
         next();
         } else {
-        console.log("NO SOS ADMIN ///////////////////////////////////////");
+        //console.log("NO SOS ADMIN ///////////////////////////////////////");
         //decirle que no tiene el rol adecuado
         }
     }else{
@@ -165,14 +154,6 @@ const roleCheck = (numero) => {
 };
 
 /** set app */
-
-router.use(cors());
-router.use(
-  bodyParser.json({
-    limit: "50mb",
-  })
-);
-
 const isAuthenticated = async (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
@@ -180,31 +161,42 @@ const isAuthenticated = async (req, res, next) => {
   res.redirect("/");
 };
 
+router.use(function (req, res, next) {
+  if(req.user == null){
+    res.locals.currentUser = "";
+  }else{
+    res.locals.currentUser = req.user;
+  }
+
+    res.locals.infos = req.flash("info");
+    res.locals.errors = req.flash("error");
+    next();
+})
+
+//auth FaceBook
 router.get("/auth/facebook", passport.authenticate("facebook", { scope: "public_profile, email" }));
-
-router.get("/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "/adminpanel", failureRedirect: "/ingresar" }));
-
+router.get("/auth/facebook/callback", passport.authenticate("facebook", { successRedirect: "/", failureRedirect: "/ingresar" }));
 router.use("/auth/logout", (req, res) => {
   req.logout();
   res.redirect("/");
 });
-
+//blog functions
 router.get("/", postController.getAllArticles); //ok
 router.get("/articulo", roleCheck("1"), postController.getArticleById); //ok
 router.get("/modificararticulo", roleCheck("1"), postController.editArticleById); //ok
 router.get("/setarticulo", roleCheck("1"), postController.updateArticleById); //ok
 router.get("/borrararticulo", roleCheck("1"), postController.deleteArticleById); // ok
-router.get("/adminpanel", roleCheck("1"), postController.adminPanel); //ok
+router.get("/adminpanel", roleCheck("2"), postController.adminPanel); //ok
+router.get("/adminpanelusers", roleCheck("2"), postController.adminPanelUsers); //ok
 router.get("/contacto", postController.contacto); //ok
-
-//rutas api
+//API routes
 router.get("/api/articulos", apiController.getAllArticles); //ok con query string
 router.get("/api/articulosporautor/:author", apiController.getArticleByAuthor); //ok con params
 router.get("/api/articulosportitulo", apiController.getArticleByTitle); //ok con query string
 router.get("/api/borrararticulo", apiController.deleteArticleById); // ok 
 router.post("/api/updateArticleById", apiController.updateArticleById); // ok updateArticleById
 router.post("/api/newArticle", apiController.newArticle); // ok 
-
+router.get("/api/getUserToken", apiController.getUserToken); // ok 
 
 //Login/Register EndPoints
 router.get("/registro", (req, res) => AccessCtrl.showRegister(req, res));
@@ -213,15 +205,10 @@ router.get("/ingresar", (req, res) => AccessCtrl.showLogin(req, res));
 router.post(
   "/ingresar",
   passport.authenticate("local", {
-    successRedirect: "/adminpanel",
+    successRedirect: "/",
     failureRedirect: "/ingresar",
   })
 );
 router.get("/cerrar-sesion", (req, res) => AccessCtrl.logout(req, res));
-// app.get('/auth/facebook', passport.authenticate('facebook'));
-// app.get('/',
-//   passport.authenticate('facebook', { successRedirect: '/',
-//                                       failureRedirect: '/ingresar' }));
-
 
 module.exports = router;

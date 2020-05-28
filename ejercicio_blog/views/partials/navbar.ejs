@@ -12,15 +12,26 @@
             <li class="nav-item">
                 <a class="nav-link" href="/contacto">Contacto</a>
             </li>
-            <% if (login) { %>
+
+            <% if (currentUser.role > 1) {%>
+                <li class="nav-item">
+                    <a class="nav-link" href="/adminpanelusers">Administrar usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/adminpanel">Administrar articulos</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/cerrar-sesion">Salir</a>
                 </li>
-            <% } else { %>
+
+                <% } else { %>
+                 
+
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/adminpanel">Admin</a>
+                    <a class="nav-link" href="/ingresar">LogIn</a>
                 </li>
-            <% } %>
+                <% } %>
         </ul>
     </div>
 </nav>

@@ -35,9 +35,16 @@ module.exports = {
     console.log(prueba, "/////////////////////////////////")
     const articles = await Article.findAll({
       include: [User],
-      where: [{ userId: prueba }]
     });
     res.render("adminpanel", { articulos: articles });
+;
+  },
+
+  async adminPanelUsers(req, res) {
+    let prueba = req.user.id;
+    console.log(prueba, "/////////////////////////////////")
+    const users = await User.findAll({});
+    res.render("adminpanelusers", { usuarios: users });
   },
 
   //tiene que ser un post, manda lo editado en la vista modificar articulo a la base, y redirige a /adminpanel donde se visualizara todo actualizado ----//update ----//setarticulo
