@@ -5,14 +5,14 @@ import movies from "../data/movies.json"
 
 function MoviesList(props) {
     //console.log("hola//////////////////////",props.movieSearchValue)
-
-
+    console.log(props.ratingValue, "en movieslist")
+    console.log(props.movieSearchValue, "el otro de movies list")
 
     return (
         <div class='container'>
             <div class='row'>
                 {movies.map(({ popularity, voteCount, posterPath, id, originalLanguage, originalTitle, title, voteAverage, overview, releaseDate }) => {
-                    if(title.toLowerCase().includes(props.movieSearchValue.toLowerCase())){
+                    if(title.toLowerCase().includes(props.movieSearchValue.toLowerCase()) && voteAverage > props.ratingValue){
                     return <Movie key={id} popularity={popularity} voteCount={voteCount} posterPath={posterPath} originalLanguage={originalLanguage} originalTitle={originalTitle} title={title} voteAverage={voteAverage} overview={overview} releaseDate={releaseDate} />;
                 }
                 })}
