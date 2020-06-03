@@ -4,12 +4,17 @@ import movies from "../data/movies.json"
 
 
 function MoviesList(props) {
-    console.log("hola//////////////////////",props.movieSearchValue)
+    //console.log("hola//////////////////////",props.movieSearchValue)
+
+
+
     return (
         <div class='container'>
             <div class='row'>
                 {movies.map(({ popularity, voteCount, posterPath, id, originalLanguage, originalTitle, title, voteAverage, overview, releaseDate }) => {
+                    if(title.toLowerCase().includes(props.movieSearchValue.toLowerCase())){
                     return <Movie key={id} popularity={popularity} voteCount={voteCount} posterPath={posterPath} originalLanguage={originalLanguage} originalTitle={originalTitle} title={title} voteAverage={voteAverage} overview={overview} releaseDate={releaseDate} />;
+                }
                 })}
             </div>
         </div>

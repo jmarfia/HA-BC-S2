@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Header, MoviesList } from './components'
+import { Header, MoviesList, Rating } from './components'
 import './App.css';
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
   return (
     <div className="App">
       <Header handleMovieSearch={setMovieSearch} movieSearch={movieSearch}/>
+      <Rating />
       <MoviesList movieSearchValue={movieSearch}/>
     </div>
   );
