@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 function SearchBar(props) {
   
   return (
-    <form class="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2">
-      <i class="fas fa-search" aria-hidden="true" />
+    <form className="form-inline d-flex justify-content-center md-form form-sm active-pink active-pink-2 mt-2">
+      <i className="fas fa-search" aria-hidden="true" />
       <input
         id="movieSearch"
         name="movieSearch"

@@ -6,7 +6,7 @@ function Rating(props) {
       <div>
         <h5>Filter By Rating</h5>
       </div>
-      <span class="star-rating">
+      <span className="star-rating">
         <input
           type="radio"
           name="rating"
